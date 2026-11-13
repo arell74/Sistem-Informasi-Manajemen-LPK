@@ -1,0 +1,6 @@
+/* siswa.css — aksen warna Siswa (hijau) */
+[data-role="siswa"] {
+  --accent: #1B8A5A;
+  --accent-dark: #146B45;
+  --accent-soft: #DDF3E8;
+}

@@ -1,0 +1,6 @@
+/* sensei.css — aksen warna Sensei (biru) */
+[data-role="sensei"] {
+  --accent: #1D5FD1;
+  --accent-dark: #174BA5;
+  --accent-soft: #E3EDFC;
+}
