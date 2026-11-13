@@ -1,0 +1,14 @@
+# Sistem operasi
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Lain-lain
+node_modules/
+*.log
+*.zip
