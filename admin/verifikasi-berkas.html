@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id" data-role="admin" data-page="verifikasi-berkas" data-title="Verifikasi Berkas">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verifikasi Berkas · Admin · Yuuki Portal</title>
+  <link rel="icon" href="../img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <!-- penjaga hak akses: dijalankan sebelum halaman tampil -->
+  <script src="../js/guard.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <header class="topbar" id="topbar"></header>
+      <main class="content">
+        <div class="page-head">
+          <div><h2>Verifikasi Berkas</h2><p class="muted">Periksa dokumen keberangkatan yang diunggah siswa.</p></div>
+        </div>
+
+        <section class="grid stats" id="stats"></section>
+
+        <div class="card">
+          <div class="toolbar">
+            <div class="search"><span data-icon="search"></span><input class="input" type="search" placeholder="Cari siswa atau dokumen…" aria-label="Cari berkas" data-search="#tblBerkas"></div>
+            <select class="select" aria-label="Filter status" data-filter="#tblBerkas" data-col="4" id="filterStatus">
+              <option value="">Semua status</option><option selected>Menunggu</option><option>Disetujui</option><option>Ditolak</option><option>Belum upload</option>
+            </select>
+            <select class="select" aria-label="Filter dokumen" data-filter="#tblBerkas" data-col="1" id="filterDok"><option value="">Semua dokumen</option></select>
+          </div>
+          <div class="table-wrap">
+            <table class="table" id="tblBerkas">
+              <thead><tr><th>Siswa</th><th>Dokumen</th><th>File</th><th>Tanggal unggah</th><th>Status</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Modal tolak berkas -->
+        <div class="modal" id="modalTolak" hidden>
+          <form class="modal-box sm" id="formTolak" novalidate>
+            <div class="modal-head"><h3>Tolak Dokumen</h3><button type="button" class="icon-btn" data-close aria-label="Tutup" data-icon="x"></button></div>
+            <div class="modal-body">
+              <p class="muted" id="tolakInfo"></p>
+              <div class="field"><label for="catatan">Alasan penolakan</label><textarea class="textarea" id="catatan" name="catatan" required minlength="5" data-msg="Tuliskan alasan minimal 5 karakter." placeholder="Contoh: Foto buram, mohon unggah ulang."></textarea></div>
+            </div>
+            <div class="modal-foot"><button type="button" class="btn btn-ghost" data-close>Batal</button><button type="submit" class="btn btn-danger">Tolak Dokumen</button></div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/admin/verifikasi-berkas.js"></script>
+</body>
+</html>

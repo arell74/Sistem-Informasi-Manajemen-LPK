@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id" data-role="admin" data-page="kelas-jadwal" data-title="Kelas & Jadwal">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kelas & Jadwal · Admin · Yuuki Portal</title>
+  <link rel="icon" href="../img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <!-- penjaga hak akses: dijalankan sebelum halaman tampil -->
+  <script src="../js/guard.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <header class="topbar" id="topbar"></header>
+      <main class="content">
+        <div class="page-head">
+          <div><h2>Kelas & Jadwal</h2><p class="muted">Atur kelas, pengajar, dan jadwal mingguan.</p></div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+            <button class="btn btn-ghost" id="btnTambahJadwal"><span data-icon="calendar"></span> Tambah Jadwal</button>
+            <button class="btn" id="btnTambahKelas"><span data-icon="plus"></span> Tambah Kelas</button>
+          </div>
+        </div>
+
+        <div class="tabs" data-tabs role="tablist">
+          <button class="tab active" data-tab="kelas" role="tab">Daftar Kelas</button>
+          <button class="tab" data-tab="jadwal" role="tab">Jadwal Mingguan</button>
+        </div>
+
+        <div data-panel="kelas">
+          <div class="card">
+            <div class="table-wrap">
+              <table class="table" id="tblKelas">
+                <thead><tr><th>ID</th><th>Nama Kelas</th><th>Level</th><th>Sensei</th><th>Ruang</th><th>Terisi</th><th></th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div data-panel="jadwal" hidden>
+          <div class="card"><div class="week" id="week"></div></div>
+        </div>
+
+        <!-- Modal kelas -->
+        <div class="modal" id="modalKelas" hidden>
+          <form class="modal-box" id="formKelas" novalidate>
+            <div class="modal-head"><h3>Tambah Kelas</h3><button type="button" class="icon-btn" data-close aria-label="Tutup" data-icon="x"></button></div>
+            <div class="modal-body">
+              <div class="form-grid">
+                <div class="field full"><label for="k_nama">Nama kelas</label><input class="input" id="k_nama" name="nama" required minlength="3" data-msg="Minimal 3 karakter."></div>
+                <div class="field"><label for="k_level">Level</label><select class="select" id="k_level" name="level"><option>N5</option><option>N4</option><option>N3</option><option>Semua</option></select></div>
+                <div class="field"><label for="k_jenis">Jenis</label><select class="select" id="k_jenis" name="jenis"><option value="utama">Utama (kelas tetap siswa)</option><option value="umum">Umum (diikuti semua siswa)</option></select></div>
+                <div class="field"><label for="k_sensei">Sensei pengampu</label><select class="select" id="k_sensei" name="sensei" required></select></div>
+                <div class="field"><label for="k_ruang">Ruang</label><input class="input" id="k_ruang" name="ruang" required placeholder="Contoh: Ruang Sakura"></div>
+                <div class="field"><label for="k_kuota">Kuota</label><input class="input" type="number" id="k_kuota" name="kuota" required min="5" max="60" value="20" data-msg="Kuota 5–60 siswa."></div>
+              </div>
+            </div>
+            <div class="modal-foot"><button type="button" class="btn btn-ghost" data-close>Batal</button><button type="submit" class="btn">Simpan</button></div>
+          </form>
+        </div>
+
+        <!-- Modal jadwal -->
+        <div class="modal" id="modalJadwal" hidden>
+          <form class="modal-box" id="formJadwal" novalidate>
+            <div class="modal-head"><h3>Tambah Jadwal</h3><button type="button" class="icon-btn" data-close aria-label="Tutup" data-icon="x"></button></div>
+            <div class="modal-body">
+              <div class="form-grid">
+                <div class="field"><label for="j_hari">Hari</label><select class="select" id="j_hari" name="hari" required></select></div>
+                <div class="field"><label for="j_kelas">Kelas</label><select class="select" id="j_kelas" name="kelas" required></select></div>
+                <div class="field"><label for="j_mulai">Jam mulai</label><input class="input" type="time" id="j_mulai" name="mulai" required value="08:00"></div>
+                <div class="field"><label for="j_selesai">Jam selesai</label><input class="input" type="time" id="j_selesai" name="selesai" required value="10:00"></div>
+                <div class="field full"><label for="j_mapel">Mata pelajaran</label><input class="input" id="j_mapel" name="mapel" required placeholder="Contoh: Bahasa Jepang N5"></div>
+              </div>
+              <p class="muted text-sm">Sensei dan ruang mengikuti data kelas. Sistem akan memperingatkan jika jadwal sensei bentrok.</p>
+            </div>
+            <div class="modal-foot"><button type="button" class="btn btn-ghost" data-close>Batal</button><button type="submit" class="btn">Simpan</button></div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/admin/kelas-jadwal.js"></script>
+</body>
+</html>

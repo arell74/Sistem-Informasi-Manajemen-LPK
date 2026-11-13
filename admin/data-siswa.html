@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id" data-role="admin" data-page="data-siswa" data-title="Data Siswa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Siswa · Admin · Yuuki Portal</title>
+  <link rel="icon" href="../img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <!-- penjaga hak akses: dijalankan sebelum halaman tampil -->
+  <script src="../js/guard.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <header class="topbar" id="topbar"></header>
+      <main class="content">
+        <div class="page-head">
+          <div><h2>Data Siswa</h2><p class="muted">Kelola seluruh peserta pelatihan LPK Yuuki.</p></div>
+          <button class="btn" id="btnTambah"><span data-icon="plus"></span> Tambah Siswa</button>
+        </div>
+
+        <div class="card">
+          <div class="toolbar">
+            <div class="search"><span data-icon="search"></span><input class="input" type="search" placeholder="Cari nama, ID, atau kota…" aria-label="Cari siswa" data-search="#tblSiswa"></div>
+            <select class="select" aria-label="Filter kelas" data-filter="#tblSiswa" data-col="2" id="filterKelas"><option value="">Semua kelas</option></select>
+            <select class="select" aria-label="Filter status" data-filter="#tblSiswa" data-col="5">
+              <option value="">Semua status</option><option>Aktif</option><option>Siap Berangkat</option><option>Cuti</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table class="table" id="tblSiswa">
+              <thead><tr><th>ID</th><th>Nama</th><th>Kelas</th><th>Program</th><th>Progres</th><th>Status</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <p class="muted text-sm mt" id="info"></p>
+        </div>
+
+        <!-- Modal tambah / edit -->
+        <div class="modal" id="modalSiswa" hidden>
+          <form class="modal-box" id="formSiswa" novalidate>
+            <div class="modal-head"><h3 id="judulModal">Tambah Siswa</h3><button type="button" class="icon-btn" data-close aria-label="Tutup" data-icon="x"></button></div>
+            <div class="modal-body">
+              <input type="hidden" name="id">
+              <div class="form-grid">
+                <div class="field full"><label for="s_nama">Nama lengkap</label><input class="input" id="s_nama" name="nama" required minlength="3" data-msg="Minimal 3 karakter."></div>
+                <div class="field"><label for="s_telepon">Telepon</label><input class="input" id="s_telepon" name="telepon" required pattern="[0-9+\- ]{9,16}" data-msg="Nomor telepon tidak valid."></div>
+                <div class="field"><label for="s_email">Email</label><input class="input" type="email" id="s_email" name="email" required></div>
+                <div class="field"><label for="s_kota">Kota asal</label><input class="input" id="s_kota" name="kota" required></div>
+                <div class="field"><label for="s_lahir">Tanggal lahir</label><input class="input" type="date" id="s_lahir" name="lahir" required></div>
+                <div class="field"><label for="s_kelas">Kelas</label><select class="select" id="s_kelas" name="kelas" required></select></div>
+                <div class="field"><label for="s_program">Program</label><select class="select" id="s_program" name="program" required></select></div>
+                <div class="field"><label for="s_bidang">Bidang kerja</label><select class="select" id="s_bidang" name="bidang"></select></div>
+                <div class="field"><label for="s_status">Status</label><select class="select" id="s_status" name="status"><option>Aktif</option><option>Siap Berangkat</option><option>Cuti</option></select></div>
+              </div>
+            </div>
+            <div class="modal-foot"><button type="button" class="btn btn-ghost" data-close>Batal</button><button type="submit" class="btn">Simpan</button></div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/admin/data-siswa.js"></script>
+</body>
+</html>
