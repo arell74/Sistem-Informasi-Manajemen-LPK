@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pendaftaran — Yuuki Training Center Indonesia</title>
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/public.css">
+</head>
+<body class="public">
+
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img class="logo-mark" src="img/logo.svg" alt="" width="42" height="42">
+        <span><strong>Yuuki</strong><small>Training Center Indonesia</small></span>
+      </a>
+      <button class="icon-btn nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false" data-icon="menu"></button>
+      <nav class="nav-links" id="navLinks" aria-label="Navigasi utama">
+        <a href="index.html">Beranda</a>
+        <a href="index.html#program">Program</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="login.html" class="btn btn-ghost">Masuk</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-banner">
+    <div class="container">
+      <h1>Formulir Pendaftaran</h1>
+      <p class="muted">Isi data dengan benar. Tim kami akan menghubungi lewat WhatsApp setelah data diverifikasi.</p>
+    </div>
+  </section>
+
+  <main class="container reg">
+    <!-- Form -->
+    <section class="card" id="formCard">
+      <form id="formDaftar" novalidate>
+        <h3>Data Pribadi</h3>
+        <div class="form-grid">
+          <div class="field full">
+            <label for="nama">Nama lengkap</label>
+            <input class="input" id="nama" name="nama" required minlength="3" data-msg="Minimal 3 karakter." placeholder="Sesuai KTP" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="nik">NIK</label>
+            <input class="input" id="nik" name="nik" required inputmode="numeric" maxlength="16" pattern="\d{16}" data-msg="NIK harus 16 digit angka." placeholder="16 digit">
+          </div>
+          <div class="field">
+            <label for="lahir">Tanggal lahir</label>
+            <input class="input" type="date" id="lahir" name="lahir" required>
+          </div>
+          <div class="field">
+            <span class="label">Jenis kelamin</span>
+            <div class="choice">
+              <label><input type="radio" name="jk" value="L" required> Laki-laki</label>
+              <label><input type="radio" name="jk" value="P"> Perempuan</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="kota">Kota asal</label>
+            <input class="input" id="kota" name="kota" required placeholder="Contoh: Bandung">
+          </div>
+          <div class="field">
+            <label for="telepon">No. WhatsApp</label>
+            <input class="input" type="tel" id="telepon" name="telepon" required pattern="(\+62|62|0)8[0-9]{8,12}" data-msg="Gunakan format 08xxxxxxxxxx." placeholder="08xxxxxxxxxx" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input class="input" type="email" id="email" name="email" required placeholder="nama@email.com" autocomplete="email">
+          </div>
+        </div>
+
+        <h3 class="mt">Program & Pendidikan</h3>
+        <div class="form-grid">
+          <div class="field">
+            <label for="pendidikan">Pendidikan terakhir</label>
+            <select class="select" id="pendidikan" name="pendidikan" required>
+              <option value="">Pilih…</option>
+              <option>SMA / SMK / Sederajat</option>
+              <option>D3</option>
+              <option>S1</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="program">Program yang diminati</label>
+            <select class="select" id="program" name="program" required></select>
+          </div>
+          <div class="field">
+            <label for="bidang">Bidang kerja yang diminati</label>
+            <select class="select" id="bidang" name="bidang"></select>
+            <span class="hint">Opsional, untuk program pemagangan.</span>
+          </div>
+          <div class="field full">
+            <label for="motivasi">Motivasi bekerja di Jepang</label>
+            <textarea class="textarea" id="motivasi" name="motivasi" required minlength="20" data-msg="Ceritakan minimal 20 karakter." placeholder="Ceritakan singkat alasanmu…"></textarea>
+            <span class="hint" id="hitung">0 karakter</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="check"><input type="checkbox" name="setuju" required> <span>Saya menyatakan data di atas benar dan bersedia dihubungi oleh LPK Yuuki.</span></label>
+        </div>
+        <button class="btn btn-lg" type="submit">Kirim Pendaftaran</button>
+      </form>
+    </section>
+
+    <!-- Sidebar info -->
+    <aside class="card">
+      <h3>Alur setelah mendaftar</h3>
+      <ol class="side-steps">
+        <li><b>Dapatkan kode pendaftaran</b>Simpan kode yang muncul setelah formulir dikirim.</li>
+        <li><b>Verifikasi admin</b>Admin memeriksa data dan menghubungi kamu.</li>
+        <li><b>Akun siswa aktif</b>Setelah diterima, kamu bisa masuk ke portal siswa.</li>
+        <li><b>Mulai belajar</b>Ikuti kelas sesuai jadwal yang diberikan.</li>
+      </ol>
+      <div class="alert alert-info"><span data-icon="clock"></span><span>Persyaratan lengkap akan dijelaskan oleh tim LPK saat menghubungi kamu. Pertanyaan? Telepon 0232-861-1123.</span></div>
+    </aside>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/pendaftaran.js"></script>
+</body>
+</html>
