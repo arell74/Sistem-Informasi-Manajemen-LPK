@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id" data-role="siswa" data-page="dashboard" data-title="Dashboard Siswa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard Siswa · Siswa · Yuuki Portal</title>
+  <link rel="icon" href="../img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/siswa.css">
+  <!-- penjaga hak akses: dijalankan sebelum halaman tampil -->
+  <script src="../js/guard.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <header class="topbar" id="topbar"></header>
+      <main class="content">
+        <div class="welcome">
+          <div>
+            <h2>Konnichiwa, <span id="namaSiswa">Siswa</span>!</h2>
+            <p id="sapaan"></p>
+          </div>
+          <a class="btn btn-light" href="berkas.html"><span data-icon="filecheck"></span> Cek Berkas Saya</a>
+        </div>
+
+        <section class="grid stats" id="stats"></section>
+
+        <article class="card" style="margin-bottom:1.1rem">
+          <div class="card-head"><h3>Status Proses Keberangkatan</h3><span class="badge badge-info" id="tahapSekarang"></span></div>
+          <div class="stepper" id="stepper"></div>
+        </article>
+
+        <section class="grid cols-2-1">
+          <article class="card">
+            <div class="card-head"><h3>Jadwal Belajar Hari Ini</h3><span class="badge badge-info" id="hariIni"></span></div>
+            <div id="jadwalHariIni"></div>
+          </article>
+          <article class="card" style="text-align:center">
+            <div class="card-head"><h3>Progres Belajar</h3></div>
+            <div class="ring" id="ring" style="margin:.5rem auto 1rem"><b>0%</b></div>
+            <p class="muted text-sm" id="targetInfo"></p>
+            <a href="nilai.html" class="btn btn-outline btn-sm">Lihat nilai</a>
+          </article>
+        </section>
+
+        <article class="card">
+          <div class="card-head"><h3>Pengumuman untuk Saya</h3></div>
+          <div id="pengumuman"></div>
+        </article>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/siswa/dashboard.js"></script>
+</body>
+</html>

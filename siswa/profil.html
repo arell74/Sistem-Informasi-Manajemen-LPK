@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id" data-role="siswa" data-page="profil" data-title="Profil Saya">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profil Saya · Siswa · Yuuki Portal</title>
+  <link rel="icon" href="../img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/siswa.css">
+  <!-- penjaga hak akses: dijalankan sebelum halaman tampil -->
+  <script src="../js/guard.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <header class="topbar" id="topbar"></header>
+      <main class="content">
+        <div class="page-head">
+          <div><h2>Profil Saya</h2><p class="muted">Perbarui data diri dan kata sandi akunmu.</p></div>
+        </div>
+
+        <section class="grid cols-2-1">
+          <article class="card">
+            <div class="card-head"><h3>Data Diri</h3></div>
+            <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem">
+              <span class="avatar lg" id="avatar"></span>
+              <div><strong id="namaTampil"></strong><br><span class="muted text-sm" id="infoTampil"></span></div>
+            </div>
+            <form id="formProfil" novalidate>
+              <div class="form-grid">
+                <div class="field full"><label for="nama">Nama lengkap</label><input class="input" id="nama" name="nama" required minlength="3" data-msg="Minimal 3 karakter."></div>
+                <div class="field"><label for="telepon">Telepon</label><input class="input" id="telepon" name="telepon" required pattern="[0-9+\- ]{9,16}" data-msg="Nomor telepon tidak valid."></div>
+                <div class="field"><label for="email">Email (untuk login)</label><input class="input" type="email" id="email" name="email" required></div>
+                <div class="field"><label for="kota">Kota asal</label><input class="input" id="kota" name="kota" required></div>
+                <div class="field"><label for="lahir">Tanggal lahir</label><input class="input" type="date" id="lahir" name="lahir" required></div>
+                <div class="field"><label for="id">ID siswa</label><input class="input" id="id" readonly></div>
+                <div class="field"><label for="kelas">Kelas</label><input class="input" id="kelas" readonly></div>
+              </div>
+              <button class="btn" type="submit">Simpan Perubahan</button>
+            </form>
+          </article>
+
+          <article class="card">
+            <div class="card-head"><h3>Ganti Kata Sandi</h3></div>
+            <form id="formSandi" novalidate>
+              <div class="field"><label for="lama">Kata sandi lama</label><input class="input" type="password" id="lama" name="lama" required autocomplete="current-password"></div>
+              <div class="field"><label for="baru">Kata sandi baru</label><input class="input" type="password" id="baru" name="baru" required minlength="6" data-msg="Minimal 6 karakter." autocomplete="new-password"></div>
+              <div class="field"><label for="ulang">Ulangi kata sandi baru</label><input class="input" type="password" id="ulang" name="ulang" required autocomplete="new-password"></div>
+              <button class="btn btn-block" type="submit">Ubah Kata Sandi</button>
+            </form>
+          </article>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/siswa/profil.js"></script>
+</body>
+</html>

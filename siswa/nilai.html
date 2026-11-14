@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id" data-role="siswa" data-page="nilai" data-title="Nilai & Progres">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nilai & Progres · Siswa · Yuuki Portal</title>
+  <link rel="icon" href="../img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/siswa.css">
+  <!-- penjaga hak akses: dijalankan sebelum halaman tampil -->
+  <script src="../js/guard.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <header class="topbar" id="topbar"></header>
+      <main class="content">
+        <div class="page-head">
+          <div><h2>Nilai & Progres</h2><p class="muted">Pantau perkembangan belajarmu menuju tes bahasa.</p></div>
+          <button class="btn btn-ghost" onclick="window.print()"><span data-icon="printer"></span> Cetak Rapor</button>
+        </div>
+
+        <section class="grid cols-2-1">
+          <article class="card">
+            <div class="card-head"><h3>Nilai per Komponen</h3><span class="badge badge-info" id="kelasInfo"></span></div>
+            <div id="nilaiList"></div>
+          </article>
+          <article class="card" style="text-align:center">
+            <div class="card-head"><h3>Rata-rata</h3></div>
+            <div class="ring" id="ring" style="margin:.5rem auto 1rem"><b>0</b></div>
+            <div id="predikat"></div>
+            <p class="muted text-sm mt" id="saran"></p>
+          </article>
+        </section>
+
+        <article class="card">
+          <div class="card-head"><h3>Riwayat Ujian</h3></div>
+          <div id="ujian"></div>
+        </article>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/siswa/nilai.js"></script>
+</body>
+</html>
