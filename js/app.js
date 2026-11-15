@@ -80,6 +80,21 @@ const Store = {
   }
 };
 
+/* Sinkronisasi data.js: jika isi DB berubah (misalnya kamu mengedit nama siswa),
+   salinan lama di localStorage dibuang supaya perubahan langsung terlihat setelah
+   halaman dimuat ulang. Selama data.js tidak diubah, perubahan lewat website tetap tersimpan. */
+(function sinkronDataDummy() {
+  const json = JSON.stringify(DB);
+  let h = 5381;
+  for (let i = 0; i < json.length; i++) h = ((h << 5) + h + json.charCodeAt(i)) | 0;
+  try {
+    if (localStorage.getItem('yuuki_dbhash') !== String(h)) {
+      Store.reset();
+      localStorage.setItem('yuuki_dbhash', String(h));
+    }
+  } catch (e) { /* localStorage tidak tersedia */ }
+})();
+
 /* ---------- 3. Auth ---------- */
 const ROLE_LABEL = { admin: 'Admin LPK', sensei: 'Sensei', siswa: 'Siswa' };
 const Auth = {

@@ -60,16 +60,16 @@ const DB = {
   ],
 
   siswa: [
-    { id: 'S-001', nama: 'Budi Santoso',    kelas: 'K-N5A', program: 'MGN', bidang: 'Restoran', telepon: '0812-3456-7801', email: 'siswa@yuuki.test',  kota: 'Bandung',    lahir: '2002-04-12', status: 'Aktif',          progres: 68, tahap: 1 },
-    { id: 'S-002', nama: 'Siti Nurhaliza',  kelas: 'K-N5A', program: 'MGN', bidang: 'Perawat', telepon: '0812-3456-7802', email: 'siti@mail.com',   kota: 'Cirebon',    lahir: '2001-09-03', status: 'Aktif',          progres: 74, tahap: 1 },
-    { id: 'S-003', nama: 'Agus Prasetyo',   kelas: 'K-N5A', program: 'MGN', bidang: 'Pertanian', telepon: '0812-3456-7803', email: 'agus@mail.com',   kota: 'Semarang',   lahir: '2003-01-21', status: 'Aktif',          progres: 55, tahap: 1 },
-    { id: 'S-004', nama: 'Dewi Anggraini',  kelas: 'K-N5B', program: 'BHS', telepon: '0812-3456-7804', email: 'dewi@mail.com',   kota: 'Bogor',      lahir: '2000-12-30', status: 'Aktif',          progres: 60, tahap: 1 },
-    { id: 'S-005', nama: 'Rizky Ramadhan',  kelas: 'K-N5B', program: 'MGN', bidang: 'Pembuatan Bahan Makanan dan Minuman', telepon: '0812-3456-7805', email: 'rizky@mail.com',  kota: 'Bekasi',     lahir: '2002-06-18', status: 'Aktif',          progres: 48, tahap: 1 },
-    { id: 'S-006', nama: 'Nur Aini',        kelas: 'K-N4A', program: 'MGN', bidang: 'Penginapan', telepon: '0812-3456-7806', email: 'nur@mail.com',    kota: 'Malang',     lahir: '2001-02-14', status: 'Aktif',          progres: 82, tahap: 2 },
-    { id: 'S-007', nama: 'Fajar Nugroho',   kelas: 'K-N4A', program: 'MGN', bidang: 'Industri Mesin', telepon: '0812-3456-7807', email: 'fajar@mail.com',  kota: 'Surabaya',   lahir: '2000-08-09', status: 'Siap Berangkat', progres: 95, tahap: 3 },
-    { id: 'S-008', nama: 'Putri Maharani',  kelas: 'K-N4A', program: 'MGN', bidang: 'Perawat', telepon: '0812-3456-7808', email: 'putri@mail.com',  kota: 'Yogyakarta', lahir: '2001-11-25', status: 'Siap Berangkat', progres: 97, tahap: 4 },
-    { id: 'S-009', nama: 'Eko Widodo',      kelas: 'K-N5B', program: 'KRY', telepon: '0812-3456-7809', email: 'eko@mail.com',    kota: 'Solo',       lahir: '1999-05-05', status: 'Cuti',           progres: 30, tahap: 1 },
-    { id: 'S-010', nama: 'Lina Marlina',    kelas: 'K-N5A', program: 'BHS', telepon: '0812-3456-7810', email: 'lina@mail.com',   kota: 'Depok',      lahir: '2002-10-02', status: 'Aktif',          progres: 62, tahap: 1 }
+    { id: 'S-001', nama: 'Muhamad Farel Fauzan',    kelas: 'K-N5A', program: 'MGN', bidang: 'Restoran', telepon: '0812-3456-7801', email: 'siswa@yuuki.test',  kota: 'Bandung',    lahir: '2002-04-12', status: 'Aktif',          progres: 68, tahap: 1 },
+    { id: 'S-002', nama: 'Nova Shabilla',  kelas: 'K-N5A', program: 'MGN', bidang: 'Perawat', telepon: '0812-3456-7802', email: 'siti@mail.com',   kota: 'Cirebon',    lahir: '2001-09-03', status: 'Aktif',          progres: 74, tahap: 1 },
+    { id: 'S-003', nama: 'Muhamad Shalih Fauzan',   kelas: 'K-N5A', program: 'MGN', bidang: 'Pertanian', telepon: '0812-3456-7803', email: 'agus@mail.com',   kota: 'Semarang',   lahir: '2003-01-21', status: 'Aktif',          progres: 55, tahap: 1 },
+    { id: 'S-004', nama: 'Azril Algiffari',  kelas: 'K-N5B', program: 'BHS', telepon: '0812-3456-7804', email: 'dewi@mail.com',   kota: 'Bogor',      lahir: '2000-12-30', status: 'Aktif',          progres: 60, tahap: 1 },
+    { id: 'S-005', nama: 'Rizky Riaadha Rismandana',  kelas: 'K-N5B', program: 'MGN', bidang: 'Pembuatan Bahan Makanan dan Minuman', telepon: '0812-3456-7805', email: 'rizky@mail.com',  kota: 'Bekasi',     lahir: '2002-06-18', status: 'Aktif',          progres: 48, tahap: 1 },
+    { id: 'S-006', nama: 'Mochamad Ilham Dwi Cahyana',        kelas: 'K-N4A', program: 'MGN', bidang: 'Penginapan', telepon: '0812-3456-7806', email: 'nur@mail.com',    kota: 'Malang',     lahir: '2001-02-14', status: 'Aktif',          progres: 82, tahap: 2 },
+    { id: 'S-007', nama: 'Adwiyana Nugraha',   kelas: 'K-N4A', program: 'MGN', bidang: 'Industri Mesin', telepon: '0812-3456-7807', email: 'fajar@mail.com',  kota: 'Surabaya',   lahir: '2000-08-09', status: 'Siap Berangkat', progres: 95, tahap: 3 },
+    { id: 'S-008', nama: 'Rafsan Zaini Anwar',  kelas: 'K-N4A', program: 'MGN', bidang: 'Perawat', telepon: '0812-3456-7808', email: 'putri@mail.com',  kota: 'Yogyakarta', lahir: '2001-11-25', status: 'Siap Berangkat', progres: 97, tahap: 4 },
+    { id: 'S-009', nama: 'Rehan Janwar Pratama',      kelas: 'K-N5B', program: 'KRY', telepon: '0812-3456-7809', email: 'eko@mail.com',    kota: 'Solo',       lahir: '1999-05-05', status: 'Cuti',           progres: 30, tahap: 1 },
+    { id: 'S-010', nama: 'Dafiq',    kelas: 'K-N5A', program: 'BHS', telepon: '0812-3456-7810', email: 'lina@mail.com',   kota: 'Depok',      lahir: '2002-10-02', status: 'Aktif',          progres: 62, tahap: 1 }
   ],
 
   jadwal: [
