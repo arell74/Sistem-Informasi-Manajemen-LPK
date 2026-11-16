@@ -37,9 +37,10 @@
     const kode = 'REG-' + String(nomor).padStart(4, '0');
 
     daftar.unshift({
-      kode, nama: d.nama.trim(), program: d.program, bidang: d.bidang, telepon: d.telepon,
-      email: d.email, kota: d.kota, lahir: d.lahir,
-      tanggal: Fmt.isoHariIni(), status: 'Baru'
+      kode, nama: d.nama.trim(), nik: d.nik, jk: d.jk, lahir: d.lahir, kota: d.kota.trim(),
+      telepon: d.telepon, email: d.email.trim(), pendidikan: d.pendidikan,
+      program: d.program, bidang: d.bidang, motivasi: d.motivasi.trim(),
+      tanggal: Fmt.isoHariIni(), status: 'Baru', catatan: ''
     });
     Store.set('pendaftar', daftar);
 

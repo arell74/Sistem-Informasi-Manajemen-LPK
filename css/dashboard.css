@@ -261,3 +261,44 @@ body.modal-open { overflow: hidden; }
 #tblImpor tr.baris-salah td { background: #FFF7F7; }
 #tblImpor tr.baris-dobel td { background: #FFFBEB; }
 #tblImpor .ket { font-size: .78rem; color: var(--muted); }
+
+/* ---------- Detail & verifikasi pendaftar (admin/dashboard) ---------- */
+.pd-head { display: flex; align-items: center; gap: .9rem; margin-bottom: 1rem; }
+.pd-head h4 { margin: 0; font-size: 1.1rem; }
+.pd-head p { margin: .15rem 0 0; font-size: .85rem; }
+#pdBody h5 { margin: 0 0 .6rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+
+.verdict { display: grid; gap: .15rem; padding: .85rem 1rem; border-radius: 12px; margin-bottom: 1.2rem; border-left: 5px solid; }
+.verdict b { font-size: 1rem; }
+.verdict span { font-size: .88rem; }
+.verdict small { font-size: .75rem; opacity: .8; margin-top: .25rem; }
+.verdict-ok { background: var(--ok-soft); color: var(--ok); border-color: var(--ok); }
+.verdict-warn { background: var(--warn-soft); color: var(--warn); border-color: var(--warn); }
+.verdict-bad { background: var(--bad-soft); color: var(--bad); border-color: var(--bad); }
+
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.2rem; }
+.detail-grid .kv { grid-template-columns: 7.5rem 1fr; }
+.detail-grid .kv dd { overflow-wrap: anywhere; }
+
+.cek-list { display: grid; gap: .55rem; }
+.cek { display: flex; gap: .6rem; align-items: flex-start; font-size: .86rem; }
+.cek b { display: block; font-weight: 600; }
+.cek small { display: block; color: var(--muted); font-size: .78rem; line-height: 1.4; }
+.cek-ic { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: .72rem; font-weight: 700; margin-top: 1px; }
+.cek-ok .cek-ic { background: var(--ok-soft); color: var(--ok); }
+.cek-warn .cek-ic { background: var(--warn-soft); color: var(--warn); }
+.cek-bad .cek-ic { background: var(--bad-soft); color: var(--bad); }
+.cek-bad small { color: var(--bad); }
+
+.motivasi { margin: 0 0 1.2rem; padding: .8rem 1rem; background: #F9FAFB; border-left: 3px solid var(--line); border-radius: 0 10px 10px 0; font-size: .9rem; font-style: italic; }
+
+@media (max-width: 700px) {
+  .detail-grid { grid-template-columns: 1fr; gap: 1.1rem; }
+  .modal-foot .btn { flex: 1 1 auto; justify-content: center; }
+}
+
+/* kartu dalam grid boleh menyusut; tabel lebar menggulir di dalam kartu, bukan memperlebar halaman */
+.grid > * { min-width: 0; }
+#tblPendaftar td { vertical-align: middle; }
+#tblPendaftar td:first-child, #tblPendaftar td:nth-child(n+4) { white-space: nowrap; }
+#tblPendaftar .sub { display: block; color: var(--muted); font-size: .76rem; margin-top: .1rem; }
