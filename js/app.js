@@ -377,6 +377,7 @@ const MENUS = {
         <span class="who"><strong>${esc(user.nama)}</strong><small>${esc(user.jabatan)}</small></span>
       </button>
       <div class="user-menu">
+        <a href="profil.html">${icon('user')} Profil Saya</a>
         <a href="../index.html">${icon('pin')} Ke website utama</a>
         <a href="#" data-reset-demo>${icon('clock')} Reset data demo</a>
         <a href="../login.html" data-logout>${icon('logout')} Keluar</a>

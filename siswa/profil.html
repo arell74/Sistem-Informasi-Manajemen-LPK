@@ -21,27 +21,26 @@
       <header class="topbar" id="topbar"></header>
       <main class="content">
         <div class="page-head">
-          <div><h2>Profil Saya</h2><p class="muted">Perbarui data diri dan kata sandi akunmu.</p></div>
+          <div><h2>Profil Saya</h2><p class="muted">Lihat data akunmu, ubah data diri, atau ganti kata sandi.</p></div>
         </div>
 
         <section class="grid cols-2-1">
           <article class="card">
-            <div class="card-head"><h3>Data Diri</h3></div>
-            <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem">
+            <div class="card-head"><h3>Profil</h3><button class="btn btn-ghost btn-sm" type="button" id="btnEdit"><span data-icon="edit"></span> Edit Profil</button></div>
+            <div class="pf-head">
               <span class="avatar lg" id="avatar"></span>
               <div><strong id="namaTampil"></strong><br><span class="muted text-sm" id="infoTampil"></span></div>
             </div>
-            <form id="formProfil" novalidate>
+            <dl class="kv" id="infoProfil"></dl>
+            <form id="formProfil" novalidate hidden>
               <div class="form-grid">
                 <div class="field full"><label for="nama">Nama lengkap</label><input class="input" id="nama" name="nama" required minlength="3" data-msg="Minimal 3 karakter."></div>
                 <div class="field"><label for="telepon">Telepon</label><input class="input" id="telepon" name="telepon" required pattern="[0-9+\- ]{9,16}" data-msg="Nomor telepon tidak valid."></div>
                 <div class="field"><label for="email">Email (untuk login)</label><input class="input" type="email" id="email" name="email" required></div>
                 <div class="field"><label for="kota">Kota asal</label><input class="input" id="kota" name="kota" required></div>
                 <div class="field"><label for="lahir">Tanggal lahir</label><input class="input" type="date" id="lahir" name="lahir" required></div>
-                <div class="field"><label for="id">ID siswa</label><input class="input" id="id" readonly></div>
-                <div class="field"><label for="kelas">Kelas</label><input class="input" id="kelas" readonly></div>
               </div>
-              <button class="btn" type="submit">Simpan Perubahan</button>
+              <div class="head-actions"><button class="btn" type="submit">Simpan Perubahan</button><button class="btn btn-ghost" type="button" id="btnBatal">Batal</button></div>
             </form>
           </article>
 
@@ -61,6 +60,6 @@
 
   <script src="../js/data.js"></script>
   <script src="../js/app.js"></script>
-  <script src="../js/siswa/profil.js"></script>
+  <script src="../js/profil.js"></script>
 </body>
 </html>

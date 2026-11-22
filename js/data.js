@@ -31,7 +31,7 @@ const DB = {
 
   /* ---------- Akun demo (satu per aktor) ---------- */
   users: {
-    admin:  { id: 'A-001', nama: 'Rina Kusuma',    jabatan: 'Admin LPK',            email: 'admin@yuuki.test',  password: 'admin123' },
+    admin:  { id: 'A-001', nama: 'Rina Kusuma',    jabatan: 'Admin LPK',            email: 'admin@yuuki.test',  telepon: '0812-1000-0100',  password: 'admin123' },
     sensei: { id: 'T-001', nama: 'Tanaka Hiroshi', jabatan: 'Sensei Bahasa Jepang', email: 'sensei@yuuki.test', password: 'sensei123' },
     siswa:  { id: 'S-001', nama: 'Budi Santoso',   jabatan: 'Peserta Pemagangan',  email: 'siswa@yuuki.test',  password: 'siswa123' }
   },
@@ -60,16 +60,16 @@ const DB = {
   ],
 
   siswa: [
-    { id: 'S-001', nama: 'Muhamad Farel Fauzan',    kelas: 'K-N5A', program: 'MGN', bidang: 'Restoran', telepon: '0812-3456-7801', email: 'siswa@yuuki.test',  kota: 'Bandung',    lahir: '2002-04-12', status: 'Aktif',          progres: 68, tahap: 1 },
-    { id: 'S-002', nama: 'Nova Shabilla',  kelas: 'K-N5A', program: 'MGN', bidang: 'Perawat', telepon: '0812-3456-7802', email: 'siti@mail.com',   kota: 'Cirebon',    lahir: '2001-09-03', status: 'Aktif',          progres: 74, tahap: 1 },
-    { id: 'S-003', nama: 'Muhamad Shalih Fauzan',   kelas: 'K-N5A', program: 'MGN', bidang: 'Pertanian', telepon: '0812-3456-7803', email: 'agus@mail.com',   kota: 'Semarang',   lahir: '2003-01-21', status: 'Aktif',          progres: 55, tahap: 1 },
-    { id: 'S-004', nama: 'Azril Alghiffari',  kelas: 'K-N5B', program: 'BHS', telepon: '0812-3456-7804', email: 'dewi@mail.com',   kota: 'Bogor',      lahir: '2000-12-30', status: 'Aktif',          progres: 60, tahap: 1 },
-    { id: 'S-005', nama: 'Rizky Riaadha Rismandana',  kelas: 'K-N5B', program: 'MGN', bidang: 'Pembuatan Bahan Makanan dan Minuman', telepon: '0812-3456-7805', email: 'rizky@mail.com',  kota: 'Bekasi',     lahir: '2002-06-18', status: 'Aktif',          progres: 48, tahap: 1 },
-    { id: 'S-006', nama: 'Anastasya Lena',        kelas: 'K-N4A', program: 'MGN', bidang: 'Penginapan', telepon: '0812-3456-7806', email: 'nur@mail.com',    kota: 'Malang',     lahir: '2001-02-14', status: 'Aktif',          progres: 82, tahap: 2 },
-    { id: 'S-007', nama: 'Mochamad Ilham Dwi Cahyana',   kelas: 'K-N4A', program: 'MGN', bidang: 'Industri Mesin', telepon: '0812-3456-7807', email: 'fajar@mail.com',  kota: 'Surabaya',   lahir: '2000-08-09', status: 'Siap Berangkat', progres: 95, tahap: 3 },
-    { id: 'S-008', nama: 'Adwiyana Nugraha',  kelas: 'K-N4A', program: 'MGN', bidang: 'Perawat', telepon: '0812-3456-7808', email: 'putri@mail.com',  kota: 'Yogyakarta', lahir: '2001-11-25', status: 'Siap Berangkat', progres: 97, tahap: 4 },
-    { id: 'S-009', nama: 'Rafsan Zaini Anwar',      kelas: 'K-N5B', program: 'KRY', telepon: '0812-3456-7809', email: 'eko@mail.com',    kota: 'Solo',       lahir: '1999-05-05', status: 'Cuti',           progres: 30, tahap: 1 },
-    { id: 'S-010', nama: 'Rehan Janwar Pratama',    kelas: 'K-N5A', program: 'BHS', telepon: '0812-3456-7810', email: 'lina@mail.com',   kota: 'Depok',      lahir: '2002-10-02', status: 'Aktif',          progres: 62, tahap: 1 }
+    { id: 'S-001', nama: 'Budi Santoso',    kelas: 'K-N5A', program: 'MGN', bidang: 'Restoran', telepon: '0812-3456-7801', email: 'siswa@yuuki.test',  kota: 'Bandung',    lahir: '2002-04-12', status: 'Aktif',          progres: 68, tahap: 1 },
+    { id: 'S-002', nama: 'Siti Nurhaliza',  kelas: 'K-N5A', program: 'MGN', bidang: 'Perawat', telepon: '0812-3456-7802', email: 'siti@mail.com',   kota: 'Cirebon',    lahir: '2001-09-03', status: 'Aktif',          progres: 74, tahap: 1 },
+    { id: 'S-003', nama: 'Agus Prasetyo',   kelas: 'K-N5A', program: 'MGN', bidang: 'Pertanian', telepon: '0812-3456-7803', email: 'agus@mail.com',   kota: 'Semarang',   lahir: '2003-01-21', status: 'Aktif',          progres: 55, tahap: 1 },
+    { id: 'S-004', nama: 'Dewi Anggraini',  kelas: 'K-N5B', program: 'BHS', telepon: '0812-3456-7804', email: 'dewi@mail.com',   kota: 'Bogor',      lahir: '2000-12-30', status: 'Aktif',          progres: 60, tahap: 1 },
+    { id: 'S-005', nama: 'Rizky Ramadhan',  kelas: 'K-N5B', program: 'MGN', bidang: 'Pembuatan Bahan Makanan dan Minuman', telepon: '0812-3456-7805', email: 'rizky@mail.com',  kota: 'Bekasi',     lahir: '2002-06-18', status: 'Aktif',          progres: 48, tahap: 1 },
+    { id: 'S-006', nama: 'Nur Aini',        kelas: 'K-N4A', program: 'MGN', bidang: 'Penginapan', telepon: '0812-3456-7806', email: 'nur@mail.com',    kota: 'Malang',     lahir: '2001-02-14', status: 'Aktif',          progres: 82, tahap: 2 },
+    { id: 'S-007', nama: 'Fajar Nugroho',   kelas: 'K-N4A', program: 'MGN', bidang: 'Industri Mesin', telepon: '0812-3456-7807', email: 'fajar@mail.com',  kota: 'Surabaya',   lahir: '2000-08-09', status: 'Siap Berangkat', progres: 95, tahap: 3 },
+    { id: 'S-008', nama: 'Putri Maharani',  kelas: 'K-N4A', program: 'MGN', bidang: 'Perawat', telepon: '0812-3456-7808', email: 'putri@mail.com',  kota: 'Yogyakarta', lahir: '2001-11-25', status: 'Siap Berangkat', progres: 97, tahap: 4 },
+    { id: 'S-009', nama: 'Eko Widodo',      kelas: 'K-N5B', program: 'KRY', telepon: '0812-3456-7809', email: 'eko@mail.com',    kota: 'Solo',       lahir: '1999-05-05', status: 'Cuti',           progres: 30, tahap: 1 },
+    { id: 'S-010', nama: 'Lina Marlina',    kelas: 'K-N5A', program: 'BHS', telepon: '0812-3456-7810', email: 'lina@mail.com',   kota: 'Depok',      lahir: '2002-10-02', status: 'Aktif',          progres: 62, tahap: 1 }
   ],
 
   jadwal: [
@@ -148,13 +148,13 @@ const DB = {
      tanggal lahir (digit 7-12: hari, bulan, tahun; perempuan hari +40) kecuali
      disengaja berbeda untuk contoh verifikasi. */
   pendaftar: [
-    { kode: 'REG-0006', nama: 'Miftar Nur Alfian', nik: '3208011403000012', jk: 'L', lahir: '2000-03-14', kota: 'Kuningan',
-      telepon: '0857-2210-4417', email: 'tatah77@gmail.com', pendidikan: 'SMA / SMK / Sederajat',
+    { kode: 'REG-0006', nama: 'Hendra Wijaya', nik: '3208011403000012', jk: 'L', lahir: '2000-03-14', kota: 'Kuningan',
+      telepon: '0857-2210-4417', email: 'hendra.wijaya@gmail.com', pendidikan: 'SMA / SMK / Sederajat',
       program: 'MGN', bidang: 'Industri Mesin',
       motivasi: 'Saya lulusan SMK Teknik Mesin dan sudah dua tahun bekerja di bengkel. Saya ingin menambah keterampilan dan pengalaman kerja di Jepang, serta membantu biaya sekolah adik saya.',
       tanggal: '2026-11-09', status: 'Baru', catatan: '' },
-    { kode: 'REG-0005', nama: 'Karla Puspa Kaldera', nik: '3209026107990003', jk: 'P', lahir: '2002-07-21', kota: 'Cirebon',
-      telepon: '0821-3345-9082', email: 'karlaa202@gmail.com', pendidikan: 'D3',
+    { kode: 'REG-0005', nama: 'Maya Sari', nik: '3209026107990003', jk: 'P', lahir: '2002-07-21', kota: 'Cirebon',
+      telepon: '0821-3345-9082', email: 'mayasari02@gmail.com', pendidikan: 'D3',
       program: 'BHS', bidang: '',
       motivasi: 'Saya ingin belajar bahasa Jepang dari dasar karena tertarik dengan budaya kerja di sana.',
       tanggal: '2026-11-08', status: 'Baru', catatan: '' },
@@ -163,18 +163,18 @@ const DB = {
       program: 'MGN', bidang: '',
       motivasi: 'asdfghjkl asdfghjkl asdfghjkl asdfghjkl',
       tanggal: '2026-11-06', status: 'Baru', catatan: '' },
-    { kode: 'REG-0003', nama: 'Putri Naela', nik: '3208024902010004', jk: 'P', lahir: '2001-02-09', kota: 'Kuningan',
-      telepon: '0838-7714-2065', email: 'putrinae1@gmail.com', pendidikan: 'S1',
+    { kode: 'REG-0003', nama: 'Intan Permata', nik: '3208024902010004', jk: 'P', lahir: '2001-02-09', kota: 'Kuningan',
+      telepon: '0838-7714-2065', email: 'intan.permata@gmail.com', pendidikan: 'S1',
       program: 'MGN', bidang: 'Perawat',
       motivasi: 'Saya lulusan keperawatan dan ingin bekerja sebagai perawat lansia di Jepang karena kebutuhannya besar dan saya senang merawat orang.',
       tanggal: '2026-11-03', status: 'Diterima', catatan: 'Data lengkap dan sesuai. Sudah dihubungi lewat WhatsApp.' },
-    { kode: 'REG-0002', nama: 'Farid Mattin', nik: '3208030512990007', jk: 'L', lahir: '1999-12-05', kota: 'Kuningan',
-      telepon: '0812-9087-3351', email: 'xenoexploit99@yahoo.com', pendidikan: 'SMA / SMK / Sederajat',
+    { kode: 'REG-0002', nama: 'Yoga Pratama', nik: '3208030512990007', jk: 'L', lahir: '1999-12-05', kota: 'Kuningan',
+      telepon: '0812-9087-3351', email: 'yogapratama99@yahoo.com', pendidikan: 'SMA / SMK / Sederajat',
       program: 'KRY', bidang: '',
       motivasi: 'Saya ingin mempersiapkan diri bekerja di Jepang sebagai karyawan, dan memulai dari belajar bahasa serta etos kerjanya.',
       tanggal: '2026-10-30', status: 'Diterima', catatan: 'Sudah datang ke kantor, data cocok dengan KTP.' },
-    { kode: 'REG-0001', nama: 'Faris Abiyyushidqi', nik: '3329047004010002', jk: 'P', lahir: '2003-04-30', kota: 'Brebes',
-      telepon: '0877-4402-6618', email: 'abiyyu54@gmail.com', pendidikan: 'SMA / SMK / Sederajat',
+    { kode: 'REG-0001', nama: 'Ratna Dewi', nik: '3329047004010002', jk: 'P', lahir: '2003-04-30', kota: 'Brebes',
+      telepon: '0877-4402-6618', email: 'ratnadewi@gmail.com', pendidikan: 'SMA / SMK / Sederajat',
       program: 'MGN', bidang: '',
       motivasi: 'Ingin bekerja di Jepang supaya bisa menabung dan membuka usaha sendiri di kampung.',
       tanggal: '2026-10-27', status: 'Ditolak', catatan: 'Tahun lahir pada NIK tidak sama dengan data pendaftaran dan nomor tidak aktif saat dihubungi.' }

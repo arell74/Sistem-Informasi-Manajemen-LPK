@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id" data-role="admin" data-page="profil" data-title="Profil Saya">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profil Saya · Admin · Yuuki Portal</title>
+  <link rel="icon" href="../img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <!-- penjaga hak akses: dijalankan sebelum halaman tampil -->
+  <script src="../js/guard.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <header class="topbar" id="topbar"></header>
+      <main class="content">
+        <div class="page-head">
+          <div><h2>Profil Saya</h2><p class="muted">Lihat data akunmu, ubah data diri, atau ganti kata sandi.</p></div>
+        </div>
+
+        <section class="grid cols-2-1">
+          <article class="card">
+            <div class="card-head"><h3>Profil</h3><button class="btn btn-ghost btn-sm" type="button" id="btnEdit"><span data-icon="edit"></span> Edit Profil</button></div>
+            <div class="pf-head">
+              <span class="avatar lg" id="avatar"></span>
+              <div><strong id="namaTampil"></strong><br><span class="muted text-sm" id="infoTampil"></span></div>
+            </div>
+            <dl class="kv" id="infoProfil"></dl>
+            <form id="formProfil" novalidate hidden>
+              <div class="form-grid">
+                <div class="field full"><label for="nama">Nama lengkap</label><input class="input" id="nama" name="nama" required minlength="3" data-msg="Minimal 3 karakter."></div>
+                <div class="field"><label for="telepon">Telepon</label><input class="input" id="telepon" name="telepon" required pattern="[0-9+\- ]{9,16}" data-msg="Nomor telepon tidak valid."></div>
+                <div class="field"><label for="email">Email (untuk login)</label><input class="input" type="email" id="email" name="email" required></div>
+              </div>
+              <div class="head-actions"><button class="btn" type="submit">Simpan Perubahan</button><button class="btn btn-ghost" type="button" id="btnBatal">Batal</button></div>
+            </form>
+          </article>
+
+          <article class="card">
+            <div class="card-head"><h3>Ganti Kata Sandi</h3></div>
+            <form id="formSandi" novalidate>
+              <div class="field"><label for="lama">Kata sandi lama</label><input class="input" type="password" id="lama" name="lama" required autocomplete="current-password"></div>
+              <div class="field"><label for="baru">Kata sandi baru</label><input class="input" type="password" id="baru" name="baru" required minlength="6" data-msg="Minimal 6 karakter." autocomplete="new-password"></div>
+              <div class="field"><label for="ulang">Ulangi kata sandi baru</label><input class="input" type="password" id="ulang" name="ulang" required autocomplete="new-password"></div>
+              <button class="btn btn-block" type="submit">Ubah Kata Sandi</button>
+            </form>
+          </article>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/profil.js"></script>
+</body>
+</html>
