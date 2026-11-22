@@ -1,131 +1,201 @@
-# Yuuki Portal
+<div align="center">
 
-**Sistem Informasi Manajemen LPK Yuuki untuk Pelatihan dan Pemberangkatan Kerja ke Jepang.**
+  <img src="img/logo.png" alt="Yuuki Training Center Logo" width="220" />
 
-Studi kasus: *SENDING ORGANIZATION (SO) LPK YUUKI TRAINING CENTER INDONESIA*
-(送り出し機関 勇気研修センターインドネシア), Kuningan, Jawa Barat — <https://lpkyuuki.com/>
+  <!-- # Yuuki Portal -->
+  ### Sistem Informasi Manajemen LPK Yuuki Training Center Indonesia
+  *Sistem Pelatihan, Manajemen Data Peserta, dan Persiapan Pemberangkatan Kerja ke Jepang*
 
-Proyek tugas mata kuliah **Desain Web** — dibuat dengan **HTML, CSS, dan JavaScript** murni
-(tanpa framework, tanpa database). Data awal ada di `js/data.js`, dan perubahan saat website
-dipakai disimpan di `localStorage` browser.
+  <p align="center">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML"><img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5"></a>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS"><img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3"></a>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img src="https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript"></a>
+    <a href="https://sheetjs.com/"><img src="https://img.shields.io/badge/SheetJS-Excel_Integration-217346?style=flat-square&logo=microsoftexcel&logoColor=white" alt="SheetJS"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg?style=flat-square" alt="License"></a>
+    <a href="#"><img src="https://img.shields.io/badge/Architecture-Vanilla_SPA_&_LocalStorage-red?style=flat-square" alt="Vanilla Architecture"></a>
+  </p>
 
-> **Bukan situs resmi.** Ini proyek tugas kuliah. Identitas lembaga (nama, alamat, kontak, 14 bidang kerja,
-> berita, pendiri) mengacu pada lpkyuuki.com dan profil Google. Data siswa, sensei, nilai, jadwal,
-> pendaftar, dan pembayaran di portal adalah **data contoh**; akun contoh memakai domain `yuuki.test`.
+  <p align="center">
+    <b>送り出し機関 勇気研修センターインドネシア</b><br>
+    Studi kasus Sending Organization (SO) LPK Yuuki — Kuningan, Jawa Barat
+  </p>
 
-## Aktor & Hak Akses
+</div>
 
-| Aktor | Hak akses |
-|---|---|
-| **Pengunjung / Calon siswa** (publik) | Melihat profil LPK, program, 14 bidang kerja, berita, dan kontak; mengisi formulir pendaftaran |
-| **Admin LPK** | Dashboard statistik, memeriksa dan memverifikasi pendaftar baru, CRUD data siswa & sensei, impor/ekspor Excel data siswa, kelola kelas & jadwal (dengan deteksi bentrok), verifikasi pembayaran, verifikasi berkas keberangkatan, kelola pengumuman, cetak laporan, lihat dan ubah profil |
-| **Sensei** | Dashboard mengajar, melihat kelas & siswa yang diampu, input absensi, input nilai (rata-rata & predikat otomatis), unggah materi, kirim pengumuman ke kelas, lihat dan ubah profil |
-| **Siswa** | Dashboard progres & status keberangkatan, jadwal, unduh materi, lihat nilai, lihat tagihan & unggah bukti bayar, unggah berkas (paspor, KTP, dll.), ubah profil & kata sandi |
+---
 
-Hak akses dijaga oleh `js/guard.js`: membuka halaman milik peran lain akan dialihkan ke halaman login
-dengan pesan "Akses ditolak". Siswa tidak dapat melihat data siswa lain, dan Sensei tidak dapat
-membuka menu pembayaran.
+## 📌 Ringkasan Proyek
 
-### Keterkaitan antar aktor (alur data)
+**Yuuki Portal** adalah aplikasi web sistem informasi akademik dan administrasi terpadu yang dirancang khusus untuk memfasilitasi operasional **Sending Organization (SO) LPK Yuuki**. Sistem ini melayani pengelolaan pelatihan bahasa dan budaya Jepang, verifikasi berkas, pemantauan progres evaluasi siswa, hingga alur persiapan keberangkatan peserta pemagangan ke Jepang.
 
+Aplikasi ini dikembangkan menggunakan arsitektur **Pure Vanilla Web (HTML5, CSS3 modern, dan ES6 JavaScript)** tanpa *framework* berat, serta memanfaatkan `localStorage` browser yang reaktif dan aman sebagai *persistent mock database*.
+
+> [!NOTE]  
+> **Disclaimer:** Repositori ini merupakan proyek akademik mata kuliah **Web Desain**. Identitas kelembagaan mengacu pada profil resmi LPK Yuuki Training Center Indonesia. Seluruh data pengguna, riwayat pembayaran, nilai, dan dokumen keberangkatan di dalam sistem adalah data contoh (*dummy simulation*).
+
+---
+
+## 📸 Pratinjau Antarmuka (Preview)
+
+Berikut adalah beberapa tampilan utama antarmuka sistem pada berbagai portal pengguna:
+
+### 1. Halaman Beranda Publik (Landing Page)
+> Portal informasi resmi bagi masyarakat, mitra kerja, dan calon siswa mengenai profil SO, 14 bidang kerja pemagangan, alur pelatihan, serta formulir registrasi online.
+
+<p align="center">
+  <img src="img/screenshots/preview-landing.jpg" alt="Preview Landing Page" width="100%" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); border: 1px solid #e5e7eb;" />
+</p>
+
+---
+
+### 2. Panel Admin — Manajemen Data Siswa & Integrasi Excel
+> Dashboard komprehensif bagi Administrator LPK untuk mengelola pendaftar, monitoring progres persiapan siswa, pencarian cepat, serta impor & ekspor data via spreadsheet (SheetJS).
+
+<p align="center">
+  <img src="img/screenshots/preview-admin.jpg" alt="Preview Dashboard Admin" width="100%" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); border: 1px solid #e5e7eb;" />
+</p>
+
+---
+
+### 3. Panel Sensei — Distribusi Materi Pembelajaran
+> Ruang kerja instruktur/Sensei untuk mengunggah materi pelajaran (PDF, audio choukai, slide presentasi), memantau absensi kelas, dan mengelola bank materi ajar.
+
+<p align="center">
+  <img src="img/screenshots/preview-sensei.jpg" alt="Preview Panel Sensei" width="100%" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); border: 1px solid #e5e7eb;" />
+</p>
+
+---
+
+### 4. Panel Siswa — Pantau Nilai & Progres Belajar
+> Dashboard personal siswa untuk memantau performa 5 komponen bahasa (Goi, Kanji, Bunpou, Choukai, Kaiwa), grafik riwayat ujian berkala, dan status kesiapan tes resmi (JLPT/NAT-TEST).
+
+<p align="center">
+  <img src="img/screenshots/preview-siswa.png" alt="Preview Panel Siswa" width="100%" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); border: 1px solid #e5e7eb;" />
+</p>
+
+---
+
+## 👥 Aktor & Hak Akses (Multi-Role System)
+
+Sistem dirancang dengan pemisahan wewenang yang tegas (*Role-Based Access Control*) yang dijaga oleh modul keamanan `js/guard.js`:
+
+| Peran | Ruang Lingkup & Wewenang Utama | Tema Aksen |
+| :--- | :--- | :---: |
+| **🌐 Publik / Calon Siswa** | Mengakses informasi program, 14 bidang kerja, profil sensei, FAQ, serta mengajukan formulir pendaftaran siswa baru secara online. | Neutral Red |
+| **🛡️ Admin LPK** | Mengelola verifikasi kelayakan pendaftar baru, CRUD siswa & sensei, jadwal & ruang belajar (dengan validasi bentrok otomatis), validasi pembayaran & kwitansi, verifikasi dokumen legal/paspor, serta broadcast pengumuman. | Crimson Red (`#C8102E`) |
+| **📚 Sensei (Pengajar)** | Mengelola kelas yang diampu, mengisi kehadiran harian siswa, menginput nilai evaluasi (otomatis menghitung rata-rata & predikat), dan mendistribusikan materi belajar. | Royal Blue (`#3B82F6`) |
+| **🎓 Siswa** | Memantau progres kesiapan kerja, grafik nilai & riwayat ujian, jadwal sesi belajar, mengunduh modul, unggah bukti bayar & kwitansi, serta unggah dokumen paspor/visa. | Emerald Green (`#0D9488`) |
+
+### 🔄 Alur Integrasi Antar Aktor
+
+```mermaid
+flowchart LR
+    A[Calon Siswa Daftar] -->|Verifikasi Validitas & NIK| B(Admin LPK)
+    B -->|Diterbitkan Akun & Tagihan| C(Siswa)
+    C -->|Unggah Bukti Bayar & Dokumen| B
+    D[Sensei] -->|Input Nilai & Absensi| C
+    D -->|Unggah Materi| C
+    B -->|Broadcast Pengumuman| C
+    B -->|Jadwal Terjadwal| D
 ```
-Calon siswa daftar ──► Admin periksa & putuskan ──► jadi Siswa + tagihan pendaftaran
-Siswa unggah bukti bayar / berkas ──► Admin verifikasi ──► status berubah di sisi Siswa
-Sensei input absensi & nilai ──► tampil di dashboard Siswa
-Admin / Sensei kirim pengumuman ──► tampil di dashboard Siswa (sesuai kelas)
-```
 
-## Verifikasi Pendaftar Baru (Admin)
+---
 
-Pendaftar tidak langsung diterima. Di dashboard admin, tombol **Periksa** membuka detail pendaftar
-(NIK, tanggal lahir, kontak, pendidikan, program, motivasi) beserta penilaian kelayakan
-**Meyakinkan**, **Perlu dicek**, atau **Mencurigakan** untuk membantu admin menilai apakah pendaftar serius.
+## ⚡ Fitur Unggulan
 
-Pemeriksaan otomatis yang dijalankan:
+### 🔍 1. Sistem Deteksi & Verifikasi Pendaftar Cerdas (Admin)
+Dashboard admin dilengkapi dengan kalkulasi kelayakan otomatis untuk menyaring pendaftar:
+- Validasi format 16-digit NIK, kode wilayah provinsi, dan sinkronisasi tanggal lahir serta gender.
+- Validasi kewajaran data (deteksi pengetikan acak / keyboard mash, deteksi disposable email).
+- Status rekomendasi otomatis: **Meyakinkan**, **Perlu dicek**, atau **Mencurigakan**.
+- Alur tindakan langsung: integrasi kontak via WhatsApp resmi, pencatatan verifikator, serta persetujuan berkas.
 
-- Penulisan nama (angka, simbol, ketikan asal seperti *qwerty*)
-- Format NIK (16 digit, kode provinsi, pola berurutan atau berulang)
-- Kecocokan NIK dengan tanggal lahir dan jenis kelamin
-- Usia (minimal 18 tahun)
-- Format telepon dan email (termasuk email sekali pakai)
-- Kewajaran motivasi (ketikan acak, terlalu singkat, banyak pengulangan)
-- Data kembar dengan pendaftar atau siswa lain
+### 📊 2. Integrasi Impor & Ekspor Spreadsheet (SheetJS)
+- Menyediakan template unduhan Excel standar `.xlsx`.
+- Validasi baris demi baris secara interaktif saat impor: baris valid masuk ke database, baris keliru atau duplikat diberi penanda alasan yang transparan.
+- Ekspor data siswa dinamis mengikuti filter dan pencarian aktif.
 
-Alur keputusan: admin dapat menyimpan **catatan**, menghubungi pendaftar lewat **WhatsApp** untuk meminta
-foto KTP, lalu memilih **Terima** atau **Tolak**. Penolakan wajib disertai alasan, dan menerima pendaftar
-berlabel *Mencurigakan* meminta konfirmasi tambahan. Pemeriksaan otomatis hanya alat bantu; keputusan
-akhir tetap di tangan admin.
+### ⏱️ 3. Penjadwalan Cerdas Anti-Bentrok
+- Deteksi konflik otomatis: sistem menolak penyimpanan jadwal bila sensei atau ruangan yang dipilih telah terisi pada hari dan rentang jam yang sama.
 
-## Impor & Ekspor Excel (Admin)
+### 📈 4. Visualisasi & Evaluasi Nilai Komprehensif
+- Siswa dan sensei disajikan visualisasi grafik batang dan ring meter nilai berbasis CSS murni.
+- Perhitungan otomatis rata-rata 5 kompetensi (Goi, Kanji, Bunpou, Choukai, Kaiwa) beserta predikat dan rekomendasi fokus belajar.
 
-Halaman **Data Siswa** menyediakan tombol **Template**, **Impor Excel**, dan **Ekspor Excel** (pustaka SheetJS,
-format `.xlsx`, `.xls`, atau `.csv`). Impor menampilkan pratinjau per baris: baris valid diimpor, baris
-bermasalah dilewati beserta keterangannya, dan data kembar ditandai. Ekspor mengikuti pencarian dan filter yang aktif.
+---
 
-## Akun Contoh
+## 🔑 Akun Demo
 
-| Peran | Email | Kata sandi |
-|---|---|---|
-| Admin | `admin@yuuki.test` | `admin123` |
-| Sensei | `sensei@yuuki.test` | `sensei123` |
-| Siswa | `siswa@yuuki.test` | `siswa123` |
+Sistem menyediakan akun siap pakai untuk mengeksplorasi seluruh hak akses portal:
 
-Menu pengguna (pojok kanan atas dashboard) memiliki pilihan reset untuk mengembalikan data awal.
-Bila isi `js/data.js` diubah, data lokal lama di browser direset otomatis saat halaman dibuka lagi
-(sesi login tidak ikut terhapus).
+| Peran | Email | Kata Sandi | Halaman Utama |
+| :--- | :--- | :--- | :--- |
+| **Administrator** | `admin@yuuki.test` | `admin123` | `admin/dashboard.html` |
+| **Sensei (Guru)** | `sensei@yuuki.test` | `sensei123` | `sensei/dashboard.html` |
+| **Siswa** | `siswa@yuuki.test` | `siswa123` | `siswa/dashboard.html` |
 
-## Cara Menjalankan
+> [!TIP]  
+> Pada pojok kanan atas menu pengguna dashboard, tersedia tombol **Reset Data** untuk mengembalikan seluruh modifikasi data di browser ke kondisi awal (*seed data* bawaan).
 
-Tidak perlu instalasi. Buka `index.html` di browser (klik dua kali), atau gunakan ekstensi
-*Live Server* di VS Code. Mulai dari `login.html` untuk mencoba setiap peran. Fitur Excel dan font
-memerlukan koneksi internet.
+---
 
-## Struktur Folder
+## 📂 Struktur Repositori
 
-```
+```text
 yuuki-portal/
-├── index.html            beranda publik
-├── pendaftaran.html      formulir pendaftaran calon siswa
-├── login.html            login berbasis peran
+├── index.html                  # Landing page publik (Company Profile)
+├── pendaftaran.html            # Formulir registrasi calon siswa baru
+├── login.html                  # Halaman otentikasi login multi-role
 ├── css/
-│   ├── style.css         dasar desain (variabel, tombol, form, tabel)
-│   ├── public.css        halaman publik (beranda, pendaftaran, login)
-│   ├── dashboard.css     layout & komponen dashboard
-│   └── admin.css · sensei.css · siswa.css   warna aksen tiap peran
+│   ├── style.css               # Desain pondasi, token variabel, tombol, & form
+│   ├── public.css              # Layout & styling halaman publik
+│   ├── dashboard.css           # Shell layout dashboard, navigasi, topbar, & sidebar
+│   ├── admin.css               # Identitas warna aksen Admin (Red)
+│   ├── sensei.css              # Identitas warna aksen Sensei (Blue/Indigo)
+│   └── siswa.css               # Identitas warna aksen Siswa (Teal/Emerald)
 ├── js/
-│   ├── data.js           data awal (pengganti database)
-│   ├── app.js            Store, Auth, UI, Form, Table, sidebar & topbar
-│   ├── guard.js          penjaga hak akses halaman
-│   ├── landing.js · pendaftaran.js · login.js
-│   ├── profil.js         halaman profil bersama (admin, sensei, siswa)
-│   └── admin/ · sensei/ · siswa/   satu file JS per halaman
-├── admin/    (8 halaman)
-├── sensei/   (6 halaman)
-├── siswa/    (7 halaman)
-└── img/logo.svg
+│   ├── data.js                 # Seed mock data awal (pengganti database server)
+│   ├── app.js                  # Core utility: Store (localStorage), Auth, Form, & UI
+│   ├── guard.js                # Penjaga otorisasi rute per sesi peran
+│   ├── profil.js               # Logika manajemen akun & ubah profil terpadu
+│   ├── admin/                  # Modul spesifik Admin (siswa, sensei, jadwal, bayar, dll.)
+│   ├── sensei/                 # Modul spesifik Sensei (absensi, nilai, materi, kelas)
+│   └── siswa/                  # Modul spesifik Siswa (progres, dokumen, jadwal, bayar)
+├── admin/                      # Halaman HTML antarmuka Admin (8 view)
+├── sensei/                     # Halaman HTML antarmuka Sensei (6 view)
+├── siswa/                      # Halaman HTML antarmuka Siswa (7 view)
+└── img/                        # Aset grafis, logo brand resmi, & screenshot
 ```
 
-## Fitur JavaScript
+---
 
-- Login simulasi + penjaga hak akses per peran
-- CRUD (tambah, ubah, hapus) dengan modal dan konfirmasi
-- Validasi formulir dengan pesan error berbahasa Indonesia
-- Pencarian dan filter tabel secara langsung
-- Halaman profil di menu pengguna: lihat data akun, ubah data diri, ganti kata sandi (semua peran)
-- Pemeriksaan otomatis kelayakan pendaftar dan modal verifikasi
-- Impor dan ekspor Excel dengan pratinjau dan validasi per baris
-- Deteksi jadwal bentrok (sensei / ruang)
-- Hitung otomatis rata-rata nilai, predikat, progres, dan sisa tagihan
-- Penyimpanan data di `localStorage` dengan reset otomatis saat data awal berubah
-- Toast notifikasi, tab, menu responsif, animasi angka, grafik batang dan ring dengan CSS
-- Unduh kwitansi dan materi contoh, cetak laporan / rapor (`window.print`)
+## 💻 Panduan Penggunaan & Instalasi
 
-## Desain
+Aplikasi ini tidak memerlukan instalasi backend, build tools (Node/Webpack), ataupun konfigurasi database:
 
-Merah Jepang `#C8102E` (admin), biru `#1D5FD1` (sensei), hijau `#1B8A5A` (siswa), navy `#1B2A41`
-untuk sidebar. Font **Poppins** dan **Noto Sans JP**. Layout responsif (sidebar menjadi menu geser di HP).
+1. **Clone repositori ini:**
+   ```bash
+   git clone https://github.com/arell74/yuuki-go.git
+   cd yuuki-go
+   ```
 
-## Konvensi Commit
+2. **Jalankan aplikasi:**
+   - **Metode 1 (Rekomendasi):** Buka dengan ekstensi **Live Server** di Visual Studio Code pada berkas `index.html`.
+   - **Metode 2:** Buka langsung berkas `index.html` menggunakan browser modern (Chrome, Edge, Firefox, Safari).
 
-Riwayat commit mengikuti progres pengerjaan dengan format *Conventional Commits*:
-`chore`, `style`, `feat(<modul>)`, `fix`, `docs`.
+---
+
+## 🛠️ Standar Kode & Desain
+
+- **Desain UI/UX:** Tipografi modern menggunakan kombinasi *Poppins* dan *Noto Sans JP*, visual kontras yang ramah aksesibilitas (*clean layout*, tanpa efek berlebih), dan sepenuhnya adaptif (*mobile-friendly sidebar drawer*).
+- **Format Commit:** Repositori ini menerapkan konvensi [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `style:`, `refactor:`, `docs:`).
+
+---
+
+## 📄 Lisensi
+
+Didistribusikan di bawah lisensi **MIT**. Silakan lihat berkas [LICENSE](LICENSE) untuk ketentuan lebih lengkap.
+
+<div align="center">
+  <sub>Dibangun dengan dedikasi untuk mendukung kemajuan pendidikan dan pemagangan tenaga kerja Indonesia ke Jepang. 🇮🇩 🤝 🇯🇵</sub>
+</div>
