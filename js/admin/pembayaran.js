@@ -54,7 +54,7 @@
         UI.toast(`Pengingat tagihan dikirim ke ${nama} (simulasi).`); break;
       case 'kwitansi':
         UI.download(`kwitansi-${b.id}.txt`,
-          `KWITANSI PEMBAYARAN — LPK YUUKI\n\nNo. Invoice : ${b.id}\nDiterima dari: ${nama} (${b.siswa})\nUntuk        : ${b.ket}\nJumlah       : ${Fmt.rupiah(b.jumlah)}\nMetode       : ${b.metode}\nTanggal      : ${Fmt.tanggal(b.tanggal)}\nStatus       : LUNAS\n\n(Dokumen contoh untuk tugas kuliah)\n`);
+          `KWITANSI PEMBAYARAN — LPK YUUKI\n\nNo. Invoice : ${b.id}\nDiterima dari: ${nama} (${b.siswa})\nUntuk        : ${b.ket}\nJumlah       : ${Fmt.rupiah(b.jumlah)}\nMetode       : ${b.metode}\nTanggal      : ${Fmt.tanggal(b.tanggal)}\nStatus       : LUNAS\n\n(Dokumen ini diterbitkan secara otomatis oleh sistem LPK Yuuki Training Center Indonesia)\n`);
         break;
     }
   });

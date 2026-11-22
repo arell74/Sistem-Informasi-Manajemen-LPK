@@ -30,7 +30,7 @@
     $('#btnMasuk').textContent = 'Masuk sebagai ' + ROLE_LABEL[r];
     const akun = DB.users[r];
     $('#demoInfo').innerHTML = `<code>${akun.email}</code> / <code>${akun.password}</code>`;
-    const warna = { admin: '#C8102E', sensei: '#1D5FD1', siswa: '#1B8A5A' }[r];
+    const warna = { admin: '#DC1F28', sensei: '#2563EB', siswa: '#0D9488' }[r];
     $('#btnMasuk').style.background = warna;
     Form.reset(form);
   }

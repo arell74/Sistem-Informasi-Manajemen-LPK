@@ -1,6 +1,7 @@
-/* siswa.css — aksen warna Siswa (hijau) */
+/* siswa.css — aksen warna Siswa (teal pertumbuhan profesional) */
 [data-role="siswa"] {
-  --accent: #1B8A5A;
-  --accent-dark: #146B45;
-  --accent-soft: #DDF3E8;
+  --accent: #0D9488;
+  --accent-dark: #0F766E;
+  --accent-soft: #F0FDFA;
+  --accent-line: #99F6E4;
 }

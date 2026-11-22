@@ -40,7 +40,11 @@
 
   function mode(edit) {
     form.hidden = !edit; lihat.hidden = edit; btnEdit.hidden = edit;
-    if (edit) { Form.fill(form, sumber); const f = form.elements.nama; f.focus(); }
+    if (edit) {
+      Form.fill(form, sumber);
+      const f = form.elements.nama;
+      if (f) f.focus();
+    }
   }
 
   btnEdit.addEventListener('click', () => mode(true));

@@ -16,13 +16,21 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 
 const Fmt = {
   rupiah: (n) => 'Rp ' + Number(n || 0).toLocaleString('id-ID'),
-  tanggal: (iso) => iso ? new Date(iso + 'T00:00:00').toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : '-',
+  tanggal: (iso) => {
+    if (!iso) return '-';
+    const s = String(iso).includes('T') ? String(iso) : String(iso) + 'T00:00:00';
+    const d = new Date(s);
+    return isNaN(d) ? String(iso) : d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+  },
   tanggalPanjang: () => new Date().toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }),
   hariIni: () => ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'][new Date().getDay()],
   isoHariIni: () => new Date().toLocaleDateString('sv-SE'),
-  inisial: (nama) => String(nama).split(' ').slice(0, 2).map((w) => w[0]).join('').toUpperCase(),
+  inisial: (nama) => {
+    const parts = String(nama || '').trim().split(/\s+/).filter(Boolean);
+    return parts.length ? parts.slice(0, 2).map((w) => w[0]).join('').toUpperCase() : '?';
+  },
   nextId: (prefix, list, key = 'id') => {
-    const max = list.reduce((m, x) => Math.max(m, parseInt(String(x[key]).split('-')[1], 10) || 0), 0);
+    const max = (list || []).reduce((m, x) => Math.max(m, parseInt(String(x[key] || '').replace(/^\D+/, ''), 10) || 0), 0);
     return prefix + '-' + String(max + 1).padStart(3, '0');
   }
 };
@@ -68,7 +76,7 @@ const Store = {
       const raw = localStorage.getItem(this.prefix + key);
       if (raw) return JSON.parse(raw);
     } catch (e) { /* localStorage tidak tersedia -> pakai data bawaan */ }
-    return JSON.parse(JSON.stringify(DB[key]));
+    return DB[key] !== undefined ? JSON.parse(JSON.stringify(DB[key])) : null;
   },
   set(key, value) {
     try { localStorage.setItem(this.prefix + key, JSON.stringify(value)); } catch (e) {}
@@ -143,9 +151,14 @@ const UI = {
     const t = document.createElement('div');
     t.className = 'toast toast-' + tipe;
     t.setAttribute('role', 'status');
+    t.setAttribute('aria-live', 'polite');
+    t.style.cursor = 'pointer';
+    t.title = 'Klik untuk menutup';
     t.innerHTML = `${icon(tipe === 'ok' ? 'check' : tipe === 'bad' ? 'x' : 'clock')}<span>${esc(pesan)}</span>`;
+    const dismiss = () => { t.classList.add('out'); setTimeout(() => t.remove(), 250); };
+    t.addEventListener('click', dismiss);
     wadah.appendChild(t);
-    setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 300); }, 3200);
+    setTimeout(dismiss, 3500);
   },
 
   hydrateIcons() {
@@ -242,9 +255,11 @@ const Form = {
     Object.entries(obj).forEach(([k, v]) => { const el = form.elements[k]; if (el) el.value = v; });
   }
 };
-document.addEventListener('input', (e) => {
-  const field = e.target.closest('.field.invalid');
-  if (field && e.target.checkValidity()) Form.setError(field, '');
+['input', 'change'].forEach((evt) => {
+  document.addEventListener(evt, (e) => {
+    const field = e.target.closest('.field.invalid');
+    if (field && e.target.checkValidity()) Form.setError(field, '');
+  });
 });
 
 /* ---------- 6. Tabel: cari & filter ---------- */

@@ -1,6 +1,7 @@
-/* admin.css — aksen warna Admin (merah Jepang) */
+/* admin.css — aksen warna Admin (merah Jepang resmi) */
 [data-role="admin"] {
-  --accent: #C8102E;
-  --accent-dark: #9E0C24;
-  --accent-soft: #FDE8EC;
+  --accent: #DC1F28;
+  --accent-dark: #B9141C;
+  --accent-soft: #FEF2F2;
+  --accent-line: #FECACA;
 }

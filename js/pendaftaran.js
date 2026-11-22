@@ -8,7 +8,10 @@
 
   // Menu mobile (navbar sama dengan beranda)
   const toggle = $('#navToggle'), links = $('#navLinks');
-  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  toggle.addEventListener('click', () => {
+    const buka = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', buka);
+  });
 
   // Isi pilihan program dari data
   $('#program').innerHTML = '<option value="">Pilih…</option>' + UI.options(DB.program, 'kode', 'nama');

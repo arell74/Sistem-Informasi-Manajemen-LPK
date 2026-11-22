@@ -43,7 +43,7 @@
       $('#buktiInfo').textContent = `${b.id} — ${b.ket} (${Fmt.rupiah(b.jumlah)})`;
       Modal.open('#modalBukti');
     } else if (e.target.closest('[data-kwitansi]')) {
-      UI.download(`kwitansi-${b.id}.txt`, `KWITANSI PEMBAYARAN — LPK YUUKI\n\nNo. Invoice : ${b.id}\nDiterima dari: ${me.nama} (${me.id})\nUntuk        : ${b.ket}\nJumlah       : ${Fmt.rupiah(b.jumlah)}\nStatus       : LUNAS\n\n(Dokumen contoh untuk tugas kuliah)\n`);
+      UI.download(`kwitansi-${b.id}.txt`, `KWITANSI PEMBAYARAN — LPK YUUKI\n\nNo. Invoice : ${b.id}\nDiterima dari: ${me.nama} (${me.id})\nUntuk        : ${b.ket}\nJumlah       : ${Fmt.rupiah(b.jumlah)}\nStatus       : LUNAS\n\n(Dokumen ini diterbitkan secara otomatis oleh sistem LPK Yuuki Training Center Indonesia)\n`);
     }
   });
 
