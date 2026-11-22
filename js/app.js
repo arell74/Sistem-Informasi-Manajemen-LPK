@@ -362,7 +362,7 @@ const MENUS = {
   if (!user || user.role !== role) return; // guard.js sudah mengalihkan halaman
 
   sidebar.innerHTML = `
-    <a class="brand" href="dashboard.html"><span class="brand-mark jp">勇気</span><span><strong>Yuuki</strong><small>${ROLE_LABEL[role]}</small></span></a>
+    <a class="brand" href="dashboard.html"><img class="brand-mark" src="../img/logo-mark.svg" alt="Yuuki"><span><strong>Yuuki</strong><small>${ROLE_LABEL[role]}</small></span></a>
     <nav class="nav" aria-label="Menu utama">
       ${MENUS[role].map((m) => `<a href="${m.href}.html" class="${m.href === page ? 'active' : ''}"${m.href === page ? ' aria-current="page"' : ''}>${icon(m.icon)}<span>${m.label}</span></a>`).join('')}
     </nav>
@@ -379,7 +379,7 @@ const MENUS = {
       <div class="user-menu">
         <a href="profil.html">${icon('user')} Profil Saya</a>
         <a href="../index.html">${icon('pin')} Ke website utama</a>
-        <a href="#" data-reset-demo>${icon('clock')} Reset data demo</a>
+        <a href="#" data-reset-demo>${icon('clock')} Reset Data</a>
         <a href="../login.html" data-logout>${icon('logout')} Keluar</a>
       </div>
     </div>`;

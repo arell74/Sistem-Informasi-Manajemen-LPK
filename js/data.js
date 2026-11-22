@@ -33,7 +33,7 @@ const DB = {
   users: {
     admin:  { id: 'A-001', nama: 'Rina Kusuma',    jabatan: 'Admin LPK',            email: 'admin@yuuki.test',  telepon: '0812-1000-0100',  password: 'admin123' },
     sensei: { id: 'T-001', nama: 'Tanaka Hiroshi', jabatan: 'Sensei Bahasa Jepang', email: 'sensei@yuuki.test', password: 'sensei123' },
-    siswa:  { id: 'S-001', nama: 'Budi Santoso',   jabatan: 'Peserta Pemagangan',  email: 'siswa@yuuki.test',  password: 'siswa123' }
+    siswa:  { id: 'S-001', nama: 'Farel Fauzan',   jabatan: 'Peserta Pemagangan',  email: 'siswa@yuuki.test',  password: 'siswa123' }
   },
 
   program: [

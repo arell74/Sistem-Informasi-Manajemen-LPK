@@ -7,10 +7,12 @@ body.public { background: #fff; }
 /* ---------- Navbar ---------- */
 .navbar { position: sticky; top: 0; z-index: 60; background: rgba(255, 255, 255, .92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
 .navbar .container { display: flex; align-items: center; gap: 1.5rem; height: 70px; }
-.logo { display: flex; align-items: center; gap: .7rem; color: var(--navy); }
-.logo-mark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: var(--red); color: #fff; font-weight: 700; font-size: .95rem; }
+.logo { display: flex; align-items: center; gap: .7rem; color: var(--navy); text-decoration: none; }
+.logo-img { height: 42px; width: auto; max-width: 100%; object-fit: contain; display: block; }
+.logo-mark { display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: #fff; padding: 4px; object-fit: contain; box-sizing: border-box; }
 .logo strong { display: block; font-size: 1.15rem; line-height: 1.1; }
 .logo small { color: var(--muted); font-size: .7rem; }
+.portal-badge { display: inline-block; padding: .2rem .55rem; background: rgba(220, 31, 40, .2); border: 1px solid #DC1F28; color: #fff; border-radius: 6px; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-left: .5rem; }
 .nav-links { display: flex; gap: .3rem; margin-left: auto; align-items: center; }
 .nav-links a:not(.btn) { padding: .5rem .85rem; border-radius: 8px; font-size: .9rem; font-weight: 500; color: #374151; }
 .nav-links a:not(.btn):hover { background: #F3F4F6; color: var(--red); }
