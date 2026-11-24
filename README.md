@@ -11,6 +11,7 @@
     <a href="https://developer.mozilla.org/en-US/docs/Web/CSS"><img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3"></a>
     <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img src="https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript"></a>
     <a href="https://sheetjs.com/"><img src="https://img.shields.io/badge/SheetJS-Excel_Integration-217346?style=flat-square&logo=microsoftexcel&logoColor=white" alt="SheetJS"></a>
+    <a href="manifest.json"><img src="https://img.shields.io/badge/PWA-Ready_&_Offline_Support-5A0FC8?style=flat-square&logo=pwa&logoColor=white" alt="PWA Ready"></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg?style=flat-square" alt="License"></a>
     <a href="#"><img src="https://img.shields.io/badge/Architecture-Vanilla_SPA_&_LocalStorage-red?style=flat-square" alt="Vanilla Architecture"></a>
   </p>
@@ -121,6 +122,11 @@ Dashboard admin dilengkapi dengan kalkulasi kelayakan otomatis untuk menyaring p
 ### 📈 4. Visualisasi & Evaluasi Nilai Komprehensif
 - Siswa dan sensei disajikan visualisasi grafik batang dan ring meter nilai berbasis CSS murni.
 - Perhitungan otomatis rata-rata 5 kompetensi (Goi, Kanji, Bunpou, Choukai, Kaiwa) beserta predikat dan rekomendasi fokus belajar.
+
+### 📱 5. Progressive Web App (PWA) & Dukungan Mode Offline
+- **Instalasi ke Layar Utama:** Siswa dan guru dapat memasang Yuuki Portal langsung ke layar utama smartphone (Android & iOS) selayaknya aplikasi native tanpa melalui toko aplikasi.
+- **Service Worker Caching (`sw.js`):** Menggunakan strategi *Stale-While-Revalidate* dan *Network-First fallback* yang memungkinkan akses jadwal, materi, dan flashcard kosakata bahkan saat berada di area tanpa koneksi internet (*offline mode*).
+- **Indikator Jaringan & Install Prompt:** Deteksi status online/offline otomatis dengan notifikasi interaktif serta tombol pasang cepat pada menu dashboard.
 
 ---
 

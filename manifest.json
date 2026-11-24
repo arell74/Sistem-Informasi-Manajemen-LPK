@@ -1,0 +1,78 @@
+{
+  "id": "yuuki-portal-app",
+  "name": "Yuuki Portal — SO LPK Yuuki Training Center",
+  "short_name": "Yuuki Portal",
+  "description": "Portal Sistem Informasi Pelatihan Bahasa & Budaya serta Pemberangkatan Pemagangan ke Jepang LPK Yuuki Training Center Indonesia",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "background_color": "#FFFFFF",
+  "theme_color": "#C8102E",
+  "orientation": "any",
+  "lang": "id-ID",
+  "dir": "ltr",
+  "categories": ["education", "productivity", "business"],
+  "icons": [
+    {
+      "src": "img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "img/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "img/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "img/logo-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Masuk / Login Portal",
+      "short_name": "Login",
+      "description": "Masuk ke portal siswa, sensei, atau admin",
+      "url": "./login.html",
+      "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Dashboard Siswa",
+      "short_name": "Siswa",
+      "description": "Pantau jadwal, progres, dan nilai belajar",
+      "url": "./siswa/dashboard.html",
+      "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Flashcard & Kuis Mandiri",
+      "short_name": "Flashcard",
+      "description": "Latihan mandiri kosakata & kanji N5/N4",
+      "url": "./siswa/materi.html?tab=flashcard",
+      "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Formulir Pendaftaran",
+      "short_name": "Pendaftaran",
+      "description": "Daftar pelatihan dan pemagangan ke Jepang",
+      "url": "./pendaftaran.html",
+      "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

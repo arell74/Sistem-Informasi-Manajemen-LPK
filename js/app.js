@@ -743,16 +743,20 @@ const MENUS = {
   topbar.innerHTML = `
     <button class="icon-btn menu-toggle" aria-label="Buka menu">${icon('menu')}</button>
     <div class="topbar-title"><h1>${esc(title || '')}</h1><p>${Fmt.tanggalPanjang()}</p></div>
-    <div class="user-wrap">
-      <button class="user-btn" aria-haspopup="true">
-        <span class="avatar">${esc(Fmt.inisial(user.nama))}</span>
-        <span class="who"><strong>${esc(user.nama)}</strong><small>${esc(user.jabatan)}</small></span>
-      </button>
-      <div class="user-menu">
-        <a href="profil.html">${icon('user')} Profil Saya</a>
-        <a href="../index.html">${icon('pin')} Ke website utama</a>
-        <a href="#" data-reset-demo>${icon('clock')} Reset Data</a>
-        <a href="../login.html" data-logout>${icon('logout')} Keluar</a>
+    <div style="display:flex;align-items:center;gap:.5rem">
+      <button class="btn btn-sm btn-outline pwa-topbar-install" id="pwaTopbarBtn" style="display:none"><span data-icon="download"></span> Pasang App</button>
+      <div class="user-wrap">
+        <button class="user-btn" aria-haspopup="true">
+          <span class="avatar">${esc(Fmt.inisial(user.nama))}</span>
+          <span class="who"><strong>${esc(user.nama)}</strong><small>${esc(user.jabatan)}</small></span>
+        </button>
+        <div class="user-menu">
+          <a href="profil.html">${icon('user')} Profil Saya</a>
+          <a href="#" id="pwaInstallBtn" style="display:none">${icon('download')} Pasang Aplikasi (PWA)</a>
+          <a href="../index.html">${icon('pin')} Ke website utama</a>
+          <a href="#" data-reset-demo>${icon('clock')} Reset Data</a>
+          <a href="../login.html" data-logout>${icon('logout')} Keluar</a>
+        </div>
       </div>
     </div>`;
 
@@ -762,5 +766,76 @@ const MENUS = {
 
   document.title = `${title} · ${ROLE_LABEL[role]} · Yuuki Portal`;
 })();
+
+/* ---------- 8. Progressive Web App (PWA) Handler ---------- */
+const PWA = {
+  deferredPrompt: null,
+  init() {
+    if ('serviceWorker' in navigator) {
+      const swPath = window.location.pathname.includes('/admin/') ||
+                     window.location.pathname.includes('/siswa/') ||
+                     window.location.pathname.includes('/sensei/') ? '../sw.js' : './sw.js';
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register(swPath).then((reg) => {
+          reg.onupdatefound = () => {
+            const installing = reg.installing;
+            if (installing) {
+              installing.onstatechange = () => {
+                if (installing.state === 'installed' && navigator.serviceWorker.controller) {
+                  UI.toast('Pembaruan versi portal tersedia. Muat ulang halaman.', 'info');
+                }
+              };
+            }
+          };
+        }).catch(() => {});
+      });
+    }
+
+    window.addEventListener('offline', () => {
+      UI.toast('Mode offline aktif. Anda tetap dapat mengakses jadwal dan materi tersimpan.', 'warn');
+      document.body.classList.add('is-offline');
+    });
+    window.addEventListener('online', () => {
+      UI.toast('Koneksi internet terhubung kembali.', 'ok');
+      document.body.classList.remove('is-offline');
+    });
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      this.deferredPrompt = e;
+      const btnMenu = $('#pwaInstallBtn');
+      const btnTop = $('#pwaTopbarBtn');
+      if (btnMenu) btnMenu.style.display = 'flex';
+      if (btnTop) btnTop.style.display = 'inline-flex';
+    });
+
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('#pwaInstallBtn') || e.target.closest('#pwaTopbarBtn')) {
+        e.preventDefault();
+        if (!this.deferredPrompt) {
+          UI.toast('Aplikasi sudah terpasang atau gunakan menu browser Anda.', 'info');
+          return;
+        }
+        this.deferredPrompt.prompt();
+        this.deferredPrompt.userChoice.then((choice) => {
+          if (choice && choice.outcome === 'accepted') {
+            UI.toast('Terima kasih telah memasang Yuuki Portal!');
+          }
+          this.deferredPrompt = null;
+          const btnMenu = $('#pwaInstallBtn');
+          const btnTop = $('#pwaTopbarBtn');
+          if (btnMenu) btnMenu.style.display = 'none';
+          if (btnTop) btnTop.style.display = 'none';
+        });
+      }
+    });
+
+    window.addEventListener('appinstalled', () => {
+      UI.toast('Yuuki Portal berhasil dipasang di layar utama! 🎉');
+      this.deferredPrompt = null;
+    });
+  }
+};
+PWA.init();
 
 UI.hydrateIcons();
