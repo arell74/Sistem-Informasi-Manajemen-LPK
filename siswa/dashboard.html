@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id" data-role="siswa" data-page="dashboard" data-title="Dashboard Siswa">
+<html lang="id" data-role="siswa" data-page="dashboard" data-title="Dashboard Peserta">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard Siswa · Siswa · Yuuki Portal</title>
+  <title>Dashboard Peserta · Peserta · Yuuki Portal</title>
   <link rel="icon" href="../img/logo-mark.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +22,7 @@
       <main class="content">
         <div class="welcome">
           <div>
-            <h2>Konnichiwa, <span id="namaSiswa">Siswa</span>!</h2>
+            <h2>Konnichiwa, <span id="namaSiswa">Peserta</span>!</h2>
             <p id="sapaan"></p>
           </div>
           <a class="btn btn-light" href="berkas.html"><span data-icon="filecheck"></span> Cek Berkas Saya</a>
@@ -47,6 +47,20 @@
             <a href="nilai.html" class="btn btn-outline btn-sm">Lihat nilai</a>
           </article>
         </section>
+
+        <!-- Widget Latihan Mandiri Flashcard -->
+        <article class="card" style="margin-bottom:1.1rem;background:linear-gradient(135deg, #F0FDFA 0%, #FFFFFF 100%);border-color:#99F6E4">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+            <div style="display:flex;gap:1rem;align-items:center">
+              <div style="width:46px;height:46px;border-radius:12px;background:#CCFBF1;color:#0D9488;display:grid;place-items:center;font-size:1.4rem;flex:none">🎴</div>
+              <div>
+                <h4 style="margin:0 0 .2rem;font-size:1rem;color:#0F172A">Latihan Kosakata & Kanji Mandiri</h4>
+                <p class="muted text-sm" style="margin:0">Hafalkan kosakata kerja & etika Jepang N5/N4 dengan kartu interaktif dan uji kemampuanmu sebelum evaluasi bulanan.</p>
+              </div>
+            </div>
+            <a href="materi.html?tab=flashcard" class="btn btn-primary btn-sm"><span data-icon="book"></span> Buka Flashcard</a>
+          </div>
+        </article>
 
         <article class="card">
           <div class="card-head"><h3>Pengumuman untuk Saya</h3></div>

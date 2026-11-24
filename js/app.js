@@ -32,6 +32,24 @@ const Fmt = {
   nextId: (prefix, list, key = 'id') => {
     const max = (list || []).reduce((m, x) => Math.max(m, parseInt(String(x[key] || '').replace(/^\D+/, ''), 10) || 0), 0);
     return prefix + '-' + String(max + 1).padStart(3, '0');
+  },
+  terbilang: (n) => {
+    n = Math.abs(Math.floor(Number(n) || 0));
+    if (n === 0) return 'Nol Rupiah';
+    const satuan = ['', 'Satu', 'Dua', 'Tiga', 'Empat', 'Lima', 'Enam', 'Tujuh', 'Delapan', 'Sembilan', 'Sepuluh', 'Sebelas'];
+    function baca(num) {
+      if (num < 12) return satuan[num];
+      if (num < 20) return baca(num - 10) + ' Belas';
+      if (num < 100) return baca(Math.floor(num / 10)) + ' Puluh' + (num % 10 ? ' ' + baca(num % 10) : '');
+      if (num < 200) return 'Seratus' + (num % 100 ? ' ' + baca(num % 100) : '');
+      if (num < 1000) return baca(Math.floor(num / 100)) + ' Ratus' + (num % 100 ? ' ' + baca(num % 100) : '');
+      if (num < 2000) return 'Seribu' + (num % 1000 ? ' ' + baca(num % 1000) : '');
+      if (num < 1000000) return baca(Math.floor(num / 1000)) + ' Ribu' + (num % 1000 ? ' ' + baca(num % 1000) : '');
+      if (num < 1000000000) return baca(Math.floor(num / 1000000)) + ' Juta' + (num % 1000000 ? ' ' + baca(num % 1000000) : '');
+      if (num < 1000000000000) return baca(Math.floor(num / 1000000000)) + ' Miliar' + (num % 1000000000 ? ' ' + baca(num % 1000000000) : '');
+      return String(num);
+    }
+    return (baca(n).trim() + ' Rupiah').replace(/\s+/g, ' ');
   }
 };
 
@@ -179,6 +197,345 @@ const UI = {
 
   options(items, nilai, label, pilih) {
     return items.map((x) => `<option value="${esc(x[nilai])}"${pilih !== undefined && pilih === x[nilai] ? ' selected' : ''}>${esc(typeof label === 'function' ? label(x) : x[label])}</option>`).join('');
+  }
+};
+
+/* ---------- Audit Log (Aktivitas Sistem & Admin) ---------- */
+const AuditLog = {
+  list() {
+    return Store.get('audit_logs') || [];
+  },
+  record(kategori, aksi, detail, status = 'Sukses') {
+    const logs = this.list();
+    const user = Auth.user();
+    const aktor = user ? `${user.nama} (${ROLE_LABEL[user.role] || user.role})` : 'Sistem';
+    const entri = {
+      id: Fmt.nextId('LOG', logs),
+      waktu: new Date().toISOString(),
+      aktor,
+      kategori,
+      aksi,
+      detail,
+      status
+    };
+    logs.unshift(entri);
+    if (logs.length > 100) logs.pop();
+    Store.set('audit_logs', logs);
+    return entri;
+  },
+  exportCSV() {
+    const logs = this.list();
+    if (!logs.length) { UI.toast('Belum ada log untuk diekspor.', 'bad'); return; }
+    const header = ['ID', 'Waktu', 'Aktor', 'Kategori', 'Aksi', 'Detail', 'Status'];
+    const rows = logs.map((l) => [
+      l.id,
+      `"${Fmt.tanggal(l.waktu)} ${new Date(l.waktu).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}"`,
+      `"${String(l.aktor || '').replace(/"/g, '""')}"`,
+      `"${String(l.kategori || '').replace(/"/g, '""')}"`,
+      `"${String(l.aksi || '').replace(/"/g, '""')}"`,
+      `"${String(l.detail || '').replace(/"/g, '""')}"`,
+      l.status
+    ]);
+    const csv = '\uFEFF' + [header.join(','), ...rows.map((r) => r.join(','))].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `audit-log-yuuki-${Fmt.isoHariIni()}.csv`;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    UI.toast('Riwayat aktivitas berhasil diekspor ke CSV.');
+  }
+};
+
+/* ---------- Dokumen Resmi & Cetak (Kwitansi, Rapor, Kop Surat, Stempel) ---------- */
+const DocPrint = {
+  logoPath() {
+    return window.location.pathname.includes('/admin/') ||
+           window.location.pathname.includes('/siswa/') ||
+           window.location.pathname.includes('/sensei/') ? '../img/logo.png' : 'img/logo.png';
+  },
+
+  renderKop() {
+    return `
+      <div class="kop-surat">
+        <img src="${this.logoPath()}" alt="Logo LPK Yuuki" class="kop-logo">
+        <div class="kop-teks">
+          <h2 class="kop-instansi">SENDING ORGANIZATION (SO) LPK YUUKI TRAINING CENTER INDONESIA</h2>
+          <h3 class="kop-kanji">送り出し機関 勇気研修センターインドネシア</h3>
+          <p class="kop-legal">Izin Kemenaker RI: No. 2/227/HK.03.01/VIII/2023 · Kemenkumham: AHU-0014229.AH.01.04.Tahun 2021</p>
+          <p class="kop-alamat">Jl. Raya Palutungan Blok Parigi, Cisantana, Kec. Cigugur, Kab. Kuningan, Jawa Barat 45552</p>
+          <p class="kop-kontak">Telp: 0232-861-1123 / 0821-2003-9019 · Email: info@lpkyuuki.com · Website: https://lpkyuuki.com</p>
+        </div>
+      </div>
+      <div class="kop-garis"></div>`;
+  },
+
+  renderStempel(label = 'LUNAS') {
+    return `
+      <svg class="doc-cap-stempel" viewBox="0 0 160 160">
+        <defs>
+          <path id="stempelCurveTop" d="M 22 80 A 58 58 0 0 1 138 80"/>
+          <path id="stempelCurveBot" d="M 138 80 A 58 58 0 0 1 22 80"/>
+        </defs>
+        <circle cx="80" cy="80" r="74" stroke="#C8102E" stroke-width="3.5" fill="none" stroke-dasharray="8 3.5"/>
+        <circle cx="80" cy="80" r="66" stroke="#C8102E" stroke-width="1.8" fill="none"/>
+        <circle cx="80" cy="80" r="46" stroke="#C8102E" stroke-width="1" fill="none"/>
+        <text font-size="9.5" font-weight="700" fill="#C8102E" letter-spacing="1">
+          <textPath href="#stempelCurveTop" startOffset="50%" text-anchor="middle">LPK YUUKI TRAINING CENTER</textPath>
+        </text>
+        <text font-size="9.5" font-weight="700" fill="#C8102E" letter-spacing="1.2">
+          <textPath href="#stempelCurveBot" startOffset="50%" text-anchor="middle">★ INDONESIA · KUNINGAN ★</textPath>
+        </text>
+        <g transform="translate(80, 80) rotate(-6)">
+          <rect x="-42" y="-13" width="84" height="26" rx="4" fill="none" stroke="#C8102E" stroke-width="2.2"/>
+          <text x="0" y="5" font-size="12" font-weight="900" fill="#C8102E" text-anchor="middle" letter-spacing="2">${esc(label)}</text>
+        </g>
+      </svg>`;
+  },
+
+  renderQR(kodeVerif) {
+    return `
+      <div class="doc-qr-box">
+        <svg class="doc-qr-svg" viewBox="0 0 29 29" fill="currentColor">
+          <rect width="29" height="29" fill="#FFFFFF"/>
+          <path d="M0,0 h7 v7 h-7 z M1,1 v5 h5 v-5 z M2,2 h3 v3 h-3 z" fill="#0F172A"/>
+          <path d="M22,0 h7 v7 h-7 z M23,1 v5 h5 v-5 z M24,2 h3 v3 h-3 z" fill="#0F172A"/>
+          <path d="M0,22 h7 v7 h-7 z M1,23 v5 h5 v-5 z M2,24 h3 v3 h-3 z" fill="#0F172A"/>
+          <rect x="9" y="2" width="2" height="2" fill="#0F172A"/><rect x="13" y="2" width="2" height="2" fill="#0F172A"/><rect x="17" y="2" width="2" height="2" fill="#0F172A"/>
+          <rect x="9" y="6" width="2" height="2" fill="#0F172A"/><rect x="15" y="6" width="2" height="2" fill="#0F172A"/><rect x="19" y="6" width="2" height="2" fill="#0F172A"/>
+          <rect x="2" y="9" width="2" height="2" fill="#0F172A"/><rect x="6" y="9" width="2" height="2" fill="#0F172A"/><rect x="10" y="9" width="2" height="2" fill="#0F172A"/><rect x="14" y="9" width="2" height="2" fill="#0F172A"/><rect x="18" y="9" width="2" height="2" fill="#0F172A"/><rect x="22" y="9" width="2" height="2" fill="#0F172A"/><rect x="26" y="9" width="2" height="2" fill="#0F172A"/>
+          <rect x="4" y="13" width="2" height="2" fill="#0F172A"/><rect x="8" y="13" width="2" height="2" fill="#0F172A"/><rect x="12" y="13" width="2" height="2" fill="#0F172A"/><rect x="16" y="13" width="2" height="2" fill="#0F172A"/><rect x="20" y="13" width="2" height="2" fill="#0F172A"/><rect x="24" y="13" width="2" height="2" fill="#0F172A"/>
+          <rect x="2" y="17" width="2" height="2" fill="#0F172A"/><rect x="6" y="17" width="2" height="2" fill="#0F172A"/><rect x="10" y="17" width="2" height="2" fill="#0F172A"/><rect x="14" y="17" width="2" height="2" fill="#0F172A"/><rect x="18" y="17" width="2" height="2" fill="#0F172A"/><rect x="22" y="17" width="2" height="2" fill="#0F172A"/><rect x="26" y="17" width="2" height="2" fill="#0F172A"/>
+          <rect x="9" y="21" width="2" height="2" fill="#0F172A"/><rect x="13" y="21" width="2" height="2" fill="#0F172A"/><rect x="17" y="21" width="2" height="2" fill="#0F172A"/><rect x="21" y="21" width="2" height="2" fill="#0F172A"/><rect x="25" y="21" width="2" height="2" fill="#0F172A"/>
+          <rect x="9" y="25" width="2" height="2" fill="#0F172A"/><rect x="15" y="25" width="2" height="2" fill="#0F172A"/><rect x="19" y="25" width="2" height="2" fill="#0F172A"/><rect x="25" y="25" width="2" height="2" fill="#0F172A"/>
+        </svg>
+        <div class="doc-qr-desc">
+          <b>VERIFIKASI DIGITAL</b>
+          Kode: ${esc(kodeVerif)}<br>
+          Pindai untuk memeriksa keaslian dokumen resmi pada server SO LPK Yuuki Training Center Indonesia.
+        </div>
+      </div>`;
+  },
+
+  showModal(contentHtml) {
+    let m = $('#modalDocPrint');
+    if (!m) {
+      m = document.createElement('div');
+      m.id = 'modalDocPrint';
+      m.className = 'modal';
+      m.innerHTML = `
+        <div class="modal-box wide" role="dialog" aria-modal="true" style="max-width:880px;padding:1.4rem">
+          <div class="modal-head" style="margin-bottom:.8rem;border-bottom:1px solid var(--line);padding-bottom:.8rem">
+            <h3>Pratinjau Dokumen Resmi</h3>
+            <div style="display:flex;gap:.5rem;align-items:center">
+              <button type="button" class="btn btn-primary btn-sm" id="btnTriggerPrint">${icon('printer')} Cetak / Simpan PDF</button>
+              <button type="button" class="icon-btn" data-close aria-label="Tutup">${icon('x')}</button>
+            </div>
+          </div>
+          <div class="modal-body" id="docPrintContainer" style="overflow-x:auto;padding:.4rem 0"></div>
+        </div>`;
+      document.body.appendChild(m);
+      $('#btnTriggerPrint', m).addEventListener('click', () => this.print());
+    }
+    $('#docPrintContainer', m).innerHTML = contentHtml;
+    Modal.open('#modalDocPrint');
+  },
+
+  print() {
+    document.body.classList.add('printing-official-doc');
+    window.print();
+    const cleanup = () => {
+      document.body.classList.remove('printing-official-doc');
+      window.removeEventListener('afterprint', cleanup);
+    };
+    window.addEventListener('afterprint', cleanup);
+    setTimeout(cleanup, 2000);
+  },
+
+  kwitansi(bayar, siswa) {
+    if (!bayar) return;
+    if (!siswa) {
+      const siswaList = Store.get('siswa') || [];
+      siswa = siswaList.find((s) => s.id === bayar.siswa) || { id: bayar.siswa, nama: bayar.siswa, kelas: '-', program: 'MGN' };
+    }
+    const programNama = {
+      'MGN': 'Program Pemagangan ke Jepang',
+      'BHS': 'Pendidikan Bahasa & Budaya Jepang',
+      'KRY': 'Bahasa Jepang untuk Karyawan'
+    }[siswa.program] || siswa.program;
+
+    const tglTerbit = Fmt.tanggal(bayar.tanggal || Fmt.isoHariIni());
+    const kodeVerif = `YUK-INV-${bayar.id}-${(bayar.tanggal || '').replace(/-/g, '')}`;
+
+    const html = `
+      <div class="doc-sheet">
+        ${this.renderKop()}
+        <h3 class="doc-title">KWITANSI PEMBAYARAN RESMI (領収書)</h3>
+        <p class="doc-subtitle">Nomor Dokumen: ${esc(bayar.id)} / YUK-FIN / ${new Date().getFullYear()}</p>
+
+        <div class="doc-meta">
+          <div class="doc-meta-item"><b>No. Invoice</b><span>: ${esc(bayar.id)}</span></div>
+          <div class="doc-meta-item"><b>Tanggal Bayar</b><span>: ${tglTerbit}</span></div>
+          <div class="doc-meta-item"><b>Terima Dari</b><span>: ${esc(siswa.nama)} (${esc(siswa.id)})</span></div>
+          <div class="doc-meta-item"><b>Program / Kelas</b><span>: ${esc(programNama)} / ${esc(siswa.kelas || '-')}</span></div>
+        </div>
+
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th style="width:40px">No</th>
+              <th>Keterangan Pembayaran</th>
+              <th>Metode Pembayaran</th>
+              <th style="text-align:right">Status</th>
+              <th style="text-align:right">Jumlah</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><strong>${esc(bayar.ket)}</strong><br><small style="color:#64748B">Pelatihan & Persiapan Pemagangan SO LPK Yuuki</small></td>
+              <td>${esc(bayar.metode || 'Transfer Bank')}</td>
+              <td style="text-align:right"><span style="color:#059669;font-weight:700">LUNAS</span></td>
+              <td class="num" style="font-weight:700">${Fmt.rupiah(bayar.jumlah)}</td>
+            </tr>
+            <tr class="doc-total-row">
+              <td colspan="4" style="text-align:right">TOTAL DITERIMA</td>
+              <td class="num" style="font-size:1.05rem;color:#0F172A">${Fmt.rupiah(bayar.jumlah)}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="doc-terbilang">
+          <b>Terbilang:</b> #${Fmt.terbilang(bayar.jumlah)}#
+        </div>
+
+        <div class="doc-sign-wrap">
+          ${this.renderQR(kodeVerif)}
+          <div class="doc-signer">
+            <p>Kuningan, ${tglTerbit}</p>
+            <p style="font-weight:600;margin-top:.15rem">Bagian Administrasi Keuangan</p>
+            <div class="doc-sign-space"></div>
+            ${this.renderStempel('LUNAS')}
+            <span class="doc-sign-name">Rina Kusuma</span>
+            <p style="font-size:.76rem;color:#64748B">NIP. YUK-2021-ADM01</p>
+          </div>
+        </div>
+      </div>`;
+
+    this.showModal(html);
+  },
+
+  rapor(siswa, nilai, ujian = [], sensei = null) {
+    if (!siswa) return;
+    if (!nilai) {
+      const allNilai = Store.get('nilai') || {};
+      nilai = allNilai[siswa.id] || { kosakata: 75, kanji: 70, tata: 75, listening: 70, kaiwa: 75 };
+    }
+    if (!ujian || !ujian.length) {
+      const allUjian = Store.get('ujian') || [];
+      ujian = allUjian.filter((u) => u.siswa === siswa.id);
+    }
+    const senseiList = Store.get('sensei') || [];
+    const guru = sensei || senseiList[0] || { nama: 'Tanaka Hiroshi', spesialisasi: 'Bahasa Jepang N5' };
+
+    const MAPEL = [
+      { key: 'kosakata', label: 'Kosakata Bahasa Jepang (Goi / 語彙)', level: 'N5' },
+      { key: 'kanji', label: 'Aksara Kanji Dasar (Kanji / 漢字)', level: 'N5' },
+      { key: 'tata', label: 'Tata Bahasa & Pola Kalimat (Bunpou / 文法)', level: 'N5' },
+      { key: 'listening', label: 'Pemahaman Menyimak (Choukai / 聴解)', level: 'N5' },
+      { key: 'kaiwa', label: 'Percakapan & Ungkapan Praktis (Kaiwa / 会話)', level: 'Praktik' }
+    ];
+
+    const entriNilai = Object.entries(nilai);
+    const rata = Math.round(entriNilai.reduce((t, [, v]) => t + v, 0) / (entriNilai.length || 1));
+    const predikat = rata >= 85 ? 'A (Sangat Baik / 優)' : rata >= 75 ? 'B (Baik / 良)' : rata >= 65 ? 'C (Cukup / 可)' : 'D (Perlu Bimbingan / 不可)';
+    const kelayakan = rata >= 75 ? 'MEMENUHI SYARAT EVALUASI TAHAP INI' : 'DIANJURKAN PENGAYAAN / REMEDIAL';
+    const kodeVerif = `YUK-RAPOR-${siswa.id}-${Fmt.isoHariIni().replace(/-/g, '')}`;
+
+    const html = `
+      <div class="doc-sheet">
+        ${this.renderKop()}
+        <h3 class="doc-title">LEMBAR EVALUASI BELAJAR SISWA (成績評価証明書)</h3>
+        <p class="doc-subtitle">Laporan Hasil Penilaian Pelatihan Bahasa & Budaya Jepang — Periode Berjalan 2026</p>
+
+        <div class="doc-meta">
+          <div class="doc-meta-item"><b>Nama Siswa</b><span>: ${esc(siswa.nama)}</span></div>
+          <div class="doc-meta-item"><b>NIS / ID Siswa</b><span>: ${esc(siswa.id)}</span></div>
+          <div class="doc-meta-item"><b>Kelas Pelatihan</b><span>: ${esc(siswa.kelas)} (Wali: ${esc(guru.nama)})</span></div>
+          <div class="doc-meta-item"><b>Bidang Pemagangan</b><span>: ${esc(siswa.bidang || 'Umum')}</span></div>
+        </div>
+
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th style="width:40px">No</th>
+              <th>Komponen Evaluasi Kompetensi</th>
+              <th style="width:70px">Standar</th>
+              <th style="text-align:right;width:85px">Nilai</th>
+              <th style="text-align:center;width:110px">Keterangan</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${MAPEL.map((m, idx) => {
+              const val = nilai[m.key] || 0;
+              const ket = val >= 75 ? 'Tuntas' : 'Perlu Latihan';
+              const color = val >= 75 ? '#059669' : '#D97706';
+              return `
+                <tr>
+                  <td>${idx + 1}</td>
+                  <td><strong>${esc(m.label)}</strong></td>
+                  <td>${esc(m.level)}</td>
+                  <td class="num" style="font-weight:700">${val}</td>
+                  <td style="text-align:center;color:${color};font-weight:600">${ket}</td>
+                </tr>`;
+            }).join('')}
+            <tr class="doc-total-row">
+              <td colspan="3" style="text-align:right">NILAI RATA-RATA KOMPETENSI</td>
+              <td class="num" style="font-size:1.05rem;color:#0F172A">${rata}</td>
+              <td style="text-align:center;font-weight:700">${predikat.split(' ')[0]}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="doc-terbilang" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem">
+          <div><b>Predikat Keseluruhan:</b> ${predikat}</div>
+          <div style="font-weight:700;color:${rata >= 75 ? '#059669' : '#D97706'}">Status: ${kelayakan}</div>
+        </div>
+
+        ${ujian.length ? `
+          <div style="margin-bottom:1.3rem">
+            <h5 style="margin:0 0 .5rem;font-size:.82rem;color:#475569;text-transform:uppercase;letter-spacing:.04em">Riwayat Evaluasi Bulanan & Simulasi Tes:</h5>
+            <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+              ${ujian.map((u) => `
+                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:6px;padding:.45rem .75rem;font-size:.78rem">
+                  <span style="color:#64748B">${esc(u.nama)} (${Fmt.tanggal(u.tanggal)}):</span>
+                  <b style="color:#0F172A;margin-left:.3rem;font-size:.85rem">${u.skor} / 100</b>
+                </div>`).join('')}
+            </div>
+          </div>` : ''}
+
+        <div class="doc-sign-wrap">
+          ${this.renderQR(kodeVerif)}
+          <div style="display:flex;gap:2rem">
+            <div class="doc-signer">
+              <p>Pengajar / Sensei</p>
+              <div class="doc-sign-space"></div>
+              <span class="doc-sign-name">${esc(guru.nama)}</span>
+              <p style="font-size:.76rem;color:#64748B">Instruktur Bahasa Jepang</p>
+            </div>
+            <div class="doc-signer">
+              <p>Kuningan, ${Fmt.tanggalPanjang()}</p>
+              <p style="font-weight:600;margin-top:.15rem">Direktur LPK Yuuki</p>
+              <div class="doc-sign-space"></div>
+              ${this.renderStempel('DISAHKAN')}
+              <span class="doc-sign-name">Sopyan Komarudin, S.Kep.</span>
+              <p style="font-size:.76rem;color:#64748B">Pimpinan Lembaga</p>
+            </div>
+          </div>
+        </div>
+      </div>`;
+
+    this.showModal(html);
   }
 };
 

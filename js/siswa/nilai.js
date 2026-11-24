@@ -33,4 +33,11 @@
     ? `<div class="bars" style="height:170px">${ujian.map((u) => `<div class="bar"><b>${u.skor}</b><i style="--h:${u.skor}%"></i><span>${esc(u.nama.replace('Ujian Bulanan ', ''))}</span></div>`).join('')}</div>
        <p class="muted text-sm mt" style="margin-bottom:0">Skor ujian bulanan dan simulasi tes (skala 0–100). Target kelulusan: 75 ke atas.</p>`
     : '<div class="empty">Belum ada riwayat ujian.</div>';
+
+  const btnCetak = $('#btnCetakRapor');
+  if (btnCetak) {
+    btnCetak.addEventListener('click', () => {
+      DocPrint.rapor(me, nilai, ujian);
+    });
+  }
 })();

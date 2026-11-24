@@ -186,6 +186,36 @@ const DB = {
     { bulan: 'Sep', n: 19 }, { bulan: 'Okt', n: 16 }, { bulan: 'Nov', n: 9 }
   ],
 
+  /* Riwayat aktivitas sistem (Audit Log) untuk transparansi tata kelola admin */
+  audit_logs: [
+    { id: 'LOG-006', waktu: '2026-11-24T14:00:00', aktor: 'Rina Kusuma (Admin LPK)', kategori: 'berkas', aksi: 'Verifikasi Berkas', detail: 'Menyetujui dokumen Paspor milik siswa Farel Fauzan (S-001)', status: 'Sukses' },
+    { id: 'LOG-005', waktu: '2026-11-23T11:15:00', aktor: 'Rina Kusuma (Admin LPK)', kategori: 'pendaftar', aksi: 'Penerimaan Pendaftar', detail: 'Menerima pendaftar REG-0003 (Faris Abiyyushidqi) - Bidang Perawat', status: 'Sukses' },
+    { id: 'LOG-004', waktu: '2026-11-22T09:30:00', aktor: 'Rina Kusuma (Admin LPK)', kategori: 'pembayaran', aksi: 'Verifikasi Pembayaran', detail: 'Memverifikasi pelunasan INV-012 (Rp 2.000.000) milik Nova Shabilla', status: 'Sukses' },
+    { id: 'LOG-003', waktu: '2026-11-21T16:45:00', aktor: 'Rina Kusuma (Admin LPK)', kategori: 'jadwal', aksi: 'Pembaruan Jadwal', detail: 'Menyesuaikan sesi Ruang Sakura untuk kelas K-N5A (Sensei Tanaka)', status: 'Sukses' },
+    { id: 'LOG-002', waktu: '2026-11-20T10:20:00', aktor: 'Rina Kusuma (Admin LPK)', kategori: 'siswa', aksi: 'Pembaruan Data Siswa', detail: 'Memperbarui status siswa Kafka Mina (S-008) ke tahap Siap Berangkat', status: 'Sukses' },
+    { id: 'LOG-001', waktu: '2026-11-19T13:10:00', aktor: 'Rina Kusuma (Admin LPK)', kategori: 'berkas', aksi: 'Penolakan Berkas', detail: 'Menolak dokumen Ijazah S-001 karena resolusi buram (diminta unggah ulang)', status: 'Perhatian' }
+  ],
+
+  /* Bank kosakata & kanji untuk flashcards dan kuis interaktif siswa */
+  flashcards: [
+    { id: 'FC-001', kanji: '挨拶', kana: 'あいさつ', romaji: 'Aisatsu', arti: 'Salam / Tegur Sapa', kategori: 'Etika Kerja', contoh_jp: '毎朝、明るく挨拶をしましょう。', contoh_id: 'Setiap pagi, mari menyapa dengan ceria.' },
+    { id: 'FC-002', kanji: '報告', kana: 'ほうこく', romaji: 'Houkoku', arti: 'Melapor (Komponen Hou-Ren-Sou)', kategori: 'Etika Kerja', contoh_jp: '問題が起きたら、すぐに上司に報告します。', contoh_id: 'Jika terjadi masalah, segera laporkan ke atasan.' },
+    { id: 'FC-003', kanji: '連絡', kana: 'れんらく', romaji: 'Renraku', arti: 'Mengabari / Menghubungi', kategori: 'Etika Kerja', contoh_jp: '遅刻するときは、必ず事前に連絡してください。', contoh_id: 'Saat akan terlambat, pastikan untuk mengabari sebelumnya.' },
+    { id: 'FC-004', kanji: '相談', kana: 'そうだん', romaji: 'Soudan', arti: 'Berkonsultasi / Berdiskusi', kategori: 'Etika Kerja', contoh_jp: '分からない仕事は先輩に相談します。', contoh_id: 'Pekerjaan yang belum dipahami saya konsultasikan ke senior.' },
+    { id: 'FC-005', kanji: '安全第一', kana: 'あんぜんだいいち', romaji: 'Anzen Daiichi', arti: 'Utamakan Keselamatan', kategori: 'Keselamatan', contoh_jp: '工場では常に安全第一で行動します。', contoh_id: 'Di pabrik, selalu bertindak dengan mengutamakan keselamatan.' },
+    { id: 'FC-006', kanji: '危険', kana: 'きけん', romaji: 'Kiken', arti: 'Bahaya / Berbahaya', kategori: 'Keselamatan', contoh_jp: 'このエリアは危険ですから入らないでください。', contoh_id: 'Area ini berbahaya, tolong jangan masuk.' },
+    { id: 'FC-007', kanji: '確認', kana: 'かくにん', romaji: 'Kakunin', arti: 'Memastikan / Pengecekan', kategori: 'Pekerjaan', contoh_jp: '作業を始める前に機械のスイッチを確認します。', contoh_id: 'Sebelum memulai pekerjaan, periksa tombol mesin.' },
+    { id: 'FC-008', kanji: '残業', kana: 'ざんぎょう', romaji: 'Zangyou', arti: 'Lembur / Kerja Tambahan', kategori: 'Pekerjaan', contoh_jp: '今日は忙しいので1時間残業します。', contoh_id: 'Hari ini sibuk, jadi saya akan lembur 1 jam.' },
+    { id: 'FC-009', kanji: '体調', kana: 'たいちょう', romaji: 'Taichou', arti: 'Kondisi Badan / Kesehatan', kategori: 'Keseharian', contoh_jp: '体調管理も仕事の大切な一部です。', contoh_id: 'Menjaga kondisi tubuh adalah bagian penting dari pekerjaan.' },
+    { id: 'FC-010', kanji: '準備', kana: 'じゅんび', romaji: 'Junbi', arti: 'Persiapan', kategori: 'Pekerjaan', contoh_jp: '明日の実習の準備をしっかりします。', contoh_id: 'Saya menyiapkan praktik untuk besok dengan matang.' },
+    { id: 'FC-011', kanji: '清掃', kana: 'せいそう', romaji: 'Seisou', arti: 'Pembersihan (5S)', kategori: 'Keselamatan', contoh_jp: '仕事が終わったら作業場を清掃します。', contoh_id: 'Setelah pekerjaan selesai, bersihkan tempat kerja.' },
+    { id: 'FC-012', kanji: '道具', kana: 'どうぐ', romaji: 'Dougu', arti: 'Alat / Perkakas Kerja', kategori: 'Pekerjaan', contoh_jp: '道具は元の場所へ正しく片付けます。', contoh_id: 'Rapikan perkakas kerja kembali ke tempat semula dengan benar.' },
+    { id: 'FC-013', kanji: '遠慮', kana: 'えんりょ', romaji: 'Enryo', arti: 'Sungkan / Ragu-ragu', kategori: 'Etika Kerja', contoh_jp: '分からないことは遠慮せずに質問してください。', contoh_id: 'Jangan sungkan bertanya hal yang belum dimengerti.' },
+    { id: 'FC-014', kanji: '病院', kana: 'びょういん', romaji: 'Byouin', arti: 'Rumah Sakit', kategori: 'Keseharian', contoh_jp: '熱が高いので病院へ行きます。', contoh_id: 'Karena demam tinggi, saya akan pergi ke rumah sakit.' },
+    { id: 'FC-015', kanji: '約束', kana: 'やくそく', romaji: 'Yakusoku', arti: 'Janji / Ketepatan Waktu', kategori: 'Etika Kerja', contoh_jp: '時間を守ることは日本の大切な約束です。', contoh_id: 'Tepat waktu adalah janji penting dalam budaya Jepang.' },
+    { id: 'FC-016', kanji: '感謝', kana: 'かんしゃ', romaji: 'Kansha', arti: 'Rasa Syukur / Terima Kasih', kategori: 'Etika Kerja', contoh_jp: '指導してくれた先輩に感謝します。', contoh_id: 'Saya berterima kasih kepada senior yang telah membimbing.' }
+  ],
+
   absensi: {} // diisi sensei: { 'K-N5A|2026-11-11': { 'S-001': 'Hadir', ... } }
 };
 

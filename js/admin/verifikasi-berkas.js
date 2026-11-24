@@ -56,6 +56,7 @@
       case 'ok':
         b.status = 'Disetujui'; b.catatan = '';
         Store.set('berkas', berkas); render();
+        AuditLog.record('berkas', 'Verifikasi Berkas', `Menyetujui dokumen ${b.dokumen} milik siswa ${namaSiswa(b.siswa)} (${b.siswa}).`, 'Sukses');
         UI.toast(`${b.dokumen} ${namaSiswa(b.siswa)} disetujui.`);
         cekKelengkapan(b.siswa); break;
       case 'no':
@@ -64,7 +65,9 @@
         Form.reset($('#formTolak'));
         Modal.open('#modalTolak'); break;
       case 'ulang':
-        b.status = 'Menunggu'; Store.set('berkas', berkas); render(); break;
+        b.status = 'Menunggu'; Store.set('berkas', berkas); render();
+        AuditLog.record('berkas', 'Tinjau Ulang Berkas', `Mengembalikan status dokumen ${b.dokumen} milik siswa ${namaSiswa(b.siswa)} (${b.siswa}) ke Menunggu.`, 'Perhatian');
+        break;
     }
   });
 
@@ -74,6 +77,7 @@
     sedangDitolak.status = 'Ditolak';
     sedangDitolak.catatan = Form.data(e.target).catatan.trim();
     Store.set('berkas', berkas);
+    AuditLog.record('berkas', 'Penolakan Berkas', `Menolak dokumen ${sedangDitolak.dokumen} milik siswa ${namaSiswa(sedangDitolak.siswa)} (${sedangDitolak.siswa}). Alasan: ${sedangDitolak.catatan}`, 'Perhatian');
     Modal.close($('#modalTolak')); render();
     UI.toast('Dokumen ditolak. Siswa akan melihat alasannya.', 'bad');
   });

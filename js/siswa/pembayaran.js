@@ -30,7 +30,7 @@
         <td>${Fmt.tanggal(b.tanggal)}${b.metode !== '-' ? `<br><small class="muted">${esc(b.metode)}</small>` : ''}</td>
         <td>${UI.badge(b.status)}</td>
         <td><div class="actions">${b.status === 'Belum' ? `<button class="btn btn-sm" data-bukti>${icon('upload')} Unggah bukti</button>`
-          : b.status === 'Lunas' ? `<button class="btn btn-ghost btn-sm" data-kwitansi>${icon('download')} Kwitansi</button>` : '<span class="muted text-sm">Diperiksa admin</span>'}</div></td>
+          : b.status === 'Lunas' ? `<button class="btn btn-ghost btn-sm" data-kwitansi>${icon('printer')} Cetak Kwitansi</button>` : '<span class="muted text-sm">Diperiksa admin</span>'}</div></td>
       </tr>`).join('') || '<tr><td colspan="6" class="muted" style="text-align:center;padding:2rem">Belum ada tagihan.</td></tr>';
   }
 
@@ -43,7 +43,7 @@
       $('#buktiInfo').textContent = `${b.id} — ${b.ket} (${Fmt.rupiah(b.jumlah)})`;
       Modal.open('#modalBukti');
     } else if (e.target.closest('[data-kwitansi]')) {
-      UI.download(`kwitansi-${b.id}.txt`, `KWITANSI PEMBAYARAN — LPK YUUKI\n\nNo. Invoice : ${b.id}\nDiterima dari: ${me.nama} (${me.id})\nUntuk        : ${b.ket}\nJumlah       : ${Fmt.rupiah(b.jumlah)}\nStatus       : LUNAS\n\n(Dokumen ini diterbitkan secara otomatis oleh sistem LPK Yuuki Training Center Indonesia)\n`);
+      DocPrint.kwitansi(b, me);
     }
   });
 

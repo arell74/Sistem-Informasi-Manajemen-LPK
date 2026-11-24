@@ -34,7 +34,7 @@
   function aksi(b) {
     if (b.status === 'Menunggu') return `<button class="btn btn-ok btn-sm" data-act="ok">${icon('check')} Verifikasi</button><button class="btn btn-ghost btn-sm" data-act="no">Tolak</button>`;
     if (b.status === 'Belum') return `<button class="btn btn-ghost btn-sm" data-act="ingat">Kirim pengingat</button>`;
-    return `<button class="btn btn-ghost btn-sm" data-act="kwitansi">${icon('download')} Kwitansi</button>`;
+    return `<button class="btn btn-ghost btn-sm" data-act="kwitansi">${icon('printer')} Cetak Kwitansi</button>`;
   }
 
   $('#tblBayar').addEventListener('click', (e) => {
@@ -43,18 +43,24 @@
     const nama = namaSiswa(b.siswa);
     switch (btn.dataset.act) {
       case 'ok':
-        b.status = 'Lunas'; Store.set('pembayaran', bayar); render();
+        b.status = 'Lunas';
+        Store.set('pembayaran', bayar);
+        AuditLog.record('pembayaran', 'Verifikasi Pembayaran', `Memverifikasi ${b.id} (${b.ket}) sejumlah ${Fmt.rupiah(b.jumlah)} milik ${nama} (${b.siswa}) sebagai Lunas.`, 'Sukses');
+        render();
         UI.toast(`${b.id} (${nama}) diverifikasi lunas.`); break;
       case 'no':
         ask(`Tolak bukti pembayaran ${b.id} milik ${nama}? Status kembali menjadi belum dibayar.`, () => {
-          b.status = 'Belum'; b.metode = '-'; Store.set('pembayaran', bayar); render();
+          b.status = 'Belum'; b.metode = '-';
+          Store.set('pembayaran', bayar);
+          AuditLog.record('pembayaran', 'Penolakan Bukti Bayar', `Menolak bukti pembayaran ${b.id} (${b.ket}) milik ${nama} (${b.siswa}).`, 'Perhatian');
+          render();
           UI.toast('Bukti pembayaran ditolak.', 'bad');
         }, 'Tolak'); break;
       case 'ingat':
+        AuditLog.record('pembayaran', 'Pengingat Pembayaran', `Mengirimkan notifikasi pengingat tagihan ${b.id} kepada ${nama}.`, 'Sukses');
         UI.toast(`Pengingat tagihan dikirim ke ${nama} (simulasi).`); break;
       case 'kwitansi':
-        UI.download(`kwitansi-${b.id}.txt`,
-          `KWITANSI PEMBAYARAN — LPK YUUKI\n\nNo. Invoice : ${b.id}\nDiterima dari: ${nama} (${b.siswa})\nUntuk        : ${b.ket}\nJumlah       : ${Fmt.rupiah(b.jumlah)}\nMetode       : ${b.metode}\nTanggal      : ${Fmt.tanggal(b.tanggal)}\nStatus       : LUNAS\n\n(Dokumen ini diterbitkan secara otomatis oleh sistem LPK Yuuki Training Center Indonesia)\n`);
+        DocPrint.kwitansi(b, siswa.find((s) => s.id === b.siswa));
         break;
     }
   });

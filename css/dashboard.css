@@ -249,6 +249,49 @@ body.modal-open { overflow: hidden; }
   .card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
   .welcome { background: none !important; color: #000; border: 1px solid #ddd; }
   .welcome h2, .welcome p { color: #000; }
+
+  /* Mode cetak dokumen resmi (Kwitansi & Rapor A4) */
+  body.printing-official-doc * {
+    visibility: hidden;
+  }
+  body.printing-official-doc #modalDocPrint,
+  body.printing-official-doc #modalDocPrint .doc-sheet,
+  body.printing-official-doc #modalDocPrint .doc-sheet * {
+    visibility: visible !important;
+  }
+  body.printing-official-doc #modalDocPrint {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    display: block !important;
+    z-index: 999999 !important;
+  }
+  body.printing-official-doc #modalDocPrint .modal-head,
+  body.printing-official-doc #modalDocPrint .modal-foot,
+  body.printing-official-doc #modalDocPrint .doc-actions,
+  body.printing-official-doc #modalDocPrint .icon-btn {
+    display: none !important;
+  }
+  body.printing-official-doc #modalDocPrint .modal-box {
+    box-shadow: none !important;
+    border: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #fff !important;
+  }
+  body.printing-official-doc #modalDocPrint .doc-sheet {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 10mm 15mm !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
 }
 
 /* ---------- Responsif ---------- */
@@ -319,3 +362,443 @@ body.modal-open { overflow: hidden; }
 #tblPendaftar td { vertical-align: middle; }
 #tblPendaftar td:first-child, #tblPendaftar td:nth-child(n+4) { white-space: nowrap; }
 #tblPendaftar .sub { display: block; color: var(--muted); font-size: .76rem; margin-top: .1rem; }
+
+/* =====================================================
+   DOKUMEN RESMI (KOP SURAT, STEMPEL, & CETAK FORMAL)
+   ===================================================== */
+.doc-sheet {
+  background: #FFFFFF;
+  color: #0F172A;
+  padding: 2.2rem 2.6rem;
+  font-family: var(--font), sans-serif;
+  max-width: 820px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, .08);
+  border: 1px solid var(--line);
+}
+.kop-surat {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin-bottom: .4rem;
+}
+.kop-logo {
+  width: 90px;
+  height: auto;
+  object-fit: contain;
+}
+.kop-teks {
+  flex: 1;
+  text-align: center;
+}
+.kop-instansi {
+  font-size: 1.02rem;
+  font-weight: 700;
+  margin: 0;
+  color: #0F172A;
+  letter-spacing: .02em;
+}
+.kop-kanji {
+  font-size: .92rem;
+  font-weight: 700;
+  margin: .2rem 0;
+  color: #C8102E;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.kop-legal {
+  font-size: .74rem;
+  color: #334155;
+  margin: .15rem 0;
+  font-weight: 500;
+}
+.kop-alamat, .kop-kontak {
+  font-size: .72rem;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.35;
+}
+.kop-garis {
+  border-top: 3px solid #0F172A;
+  border-bottom: 1px solid #0F172A;
+  padding-bottom: 2px;
+  margin: .6rem 0 1.4rem;
+}
+.doc-title {
+  text-align: center;
+  font-size: 1.18rem;
+  font-weight: 700;
+  margin: 0 0 .2rem;
+  letter-spacing: .04em;
+  color: #0F172A;
+  text-transform: uppercase;
+}
+.doc-subtitle {
+  text-align: center;
+  font-size: .8rem;
+  color: #64748B;
+  margin: 0 0 1.4rem;
+}
+.doc-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .6rem 1.4rem;
+  background: #F8FAFC;
+  padding: .9rem 1.1rem;
+  border-radius: 8px;
+  margin-bottom: 1.3rem;
+  font-size: .84rem;
+  border: 1px solid #E2E8F0;
+}
+.doc-meta-item {
+  display: flex;
+  gap: .5rem;
+}
+.doc-meta-item b {
+  color: #64748B;
+  min-width: 6.5rem;
+  font-weight: 500;
+}
+.doc-meta-item span {
+  color: #0F172A;
+  font-weight: 600;
+}
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .86rem;
+  margin-bottom: 1.3rem;
+}
+.doc-table th {
+  background: #F1F5F9;
+  color: #1E293B;
+  font-weight: 600;
+  text-align: left;
+  padding: .65rem .85rem;
+  border: 1px solid #CBD5E1;
+}
+.doc-table td {
+  padding: .65rem .85rem;
+  border: 1px solid #E2E8F0;
+  vertical-align: middle;
+}
+.doc-table tr:nth-child(even) {
+  background: #F8FAFC;
+}
+.doc-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.doc-total-row {
+  background: #F8FAFC;
+  font-weight: 700;
+}
+.doc-terbilang {
+  background: #F8FAFC;
+  border-left: 3px solid var(--accent, #C8102E);
+  padding: .65rem .9rem;
+  border-radius: 0 6px 6px 0;
+  font-size: .84rem;
+  margin-bottom: 1.4rem;
+  font-style: italic;
+  color: #334155;
+}
+.doc-sign-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 1.8rem;
+  padding-top: .8rem;
+  border-top: 1px dashed #CBD5E1;
+}
+.doc-qr-box {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  max-width: 58%;
+}
+.doc-qr-svg {
+  width: 72px;
+  height: 72px;
+  flex: none;
+  border: 1px solid #CBD5E1;
+  padding: 3px;
+  border-radius: 6px;
+  background: #FFFFFF;
+}
+.doc-qr-desc {
+  font-size: .72rem;
+  color: #64748B;
+  line-height: 1.4;
+}
+.doc-qr-desc b {
+  color: #0F172A;
+  display: block;
+  font-size: .76rem;
+  margin-bottom: .15rem;
+}
+.doc-signer {
+  position: relative;
+  text-align: center;
+  min-width: 170px;
+}
+.doc-signer p {
+  margin: 0;
+  font-size: .82rem;
+  color: #475569;
+}
+.doc-signer .doc-sign-space {
+  height: 58px;
+}
+.doc-signer .doc-sign-name {
+  font-size: .86rem;
+  font-weight: 700;
+  color: #0F172A;
+  border-bottom: 1px solid #0F172A;
+  display: inline-block;
+  padding-bottom: 2px;
+  margin-bottom: .2rem;
+}
+.doc-cap-stempel {
+  position: absolute;
+  right: -14px;
+  bottom: 8px;
+  width: 110px;
+  height: 110px;
+  pointer-events: none;
+  opacity: .88;
+  transform: rotate(-8deg);
+  z-index: 2;
+}
+
+/* =====================================================
+   AUDIT LOG (RIWAYAT AKTIVITAS SISTEM)
+   ===================================================== */
+.audit-category {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .2rem .55rem;
+  border-radius: 6px;
+  font-size: .76rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.audit-cat-berkas     { background: #EEF2FF; color: #4338CA; }
+.audit-cat-pembayaran { background: #ECFDF5; color: #047857; }
+.audit-cat-pendaftar  { background: #FEF3C7; color: #B45309; }
+.audit-cat-siswa      { background: #F0FDF4; color: #15803D; }
+.audit-cat-jadwal     { background: #F5F3FF; color: #6D28D9; }
+.audit-cat-sistem     { background: #F1F5F9; color: #475569; }
+.audit-time {
+  color: var(--muted);
+  font-size: .76rem;
+  white-space: nowrap;
+}
+
+/* =====================================================
+   FLASHCARDS & KUIS KANJI / KOSAKATA (SISWA)
+   ===================================================== */
+.fc-wrapper {
+  max-width: 680px;
+  margin: 0 auto;
+}
+.fc-modes {
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+  margin-bottom: 1.2rem;
+}
+.fc-card-stage {
+  perspective: 1200px;
+  width: 100%;
+  max-width: 500px;
+  height: 290px;
+  margin: 0 auto 1.2rem;
+  user-select: none;
+}
+.fc-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform .45s cubic-bezier(.4, 0, .2, 1);
+  cursor: pointer;
+}
+.fc-card.flipped {
+  transform: rotateY(180deg);
+}
+.fc-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 18px;
+  padding: 1.6rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  background: #FFFFFF;
+  border: 1.5px solid var(--line);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .05);
+}
+.fc-front {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%);
+}
+.fc-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, #F8FAFC 0%, #F0FDFA 100%);
+  border-color: #99F6E4;
+}
+.fc-tag {
+  font-size: .75rem;
+  padding: .2rem .65rem;
+  border-radius: 12px;
+  background: #F1F5F9;
+  color: #475569;
+  font-weight: 600;
+}
+.fc-kanji-big {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 2.9rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin: auto 0;
+  line-height: 1.2;
+}
+.fc-kana-hint {
+  font-size: 1.15rem;
+  color: var(--accent, #0D9488);
+  font-weight: 600;
+  margin-top: .3rem;
+}
+.fc-arti-big {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin: .3rem 0;
+}
+.fc-romaji-sub {
+  font-size: .92rem;
+  color: #64748B;
+  font-style: italic;
+  margin-bottom: .6rem;
+}
+.fc-example-box {
+  background: rgba(255, 255, 255, .85);
+  border-left: 3px solid var(--accent, #0D9488);
+  border-radius: 6px;
+  padding: .55rem .85rem;
+  font-size: .82rem;
+  text-align: left;
+  width: 100%;
+  color: #334155;
+}
+.fc-example-box span {
+  display: block;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 500;
+  color: #0F172A;
+  margin-bottom: .2rem;
+}
+.fc-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  flex-wrap: wrap;
+  margin-top: .8rem;
+}
+.fc-progress-bar {
+  height: 6px;
+  border-radius: 6px;
+  background: #E2E8F0;
+  overflow: hidden;
+  max-width: 500px;
+  margin: 1.2rem auto 0;
+}
+.fc-progress-fill {
+  height: 100%;
+  background: var(--accent, #0D9488);
+  transition: width .25s ease;
+}
+
+/* Quiz mode */
+.quiz-box {
+  max-width: 540px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1.8rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, .04);
+}
+.quiz-q-num {
+  font-size: .82rem;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: .4rem;
+}
+.quiz-kanji {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: .3rem;
+}
+.quiz-kana {
+  font-size: 1.05rem;
+  color: var(--accent, #0D9488);
+  margin-bottom: 1.3rem;
+}
+.quiz-options {
+  display: grid;
+  gap: .6rem;
+}
+.quiz-opt-btn {
+  text-align: left;
+  padding: .75rem 1rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background: #FFFFFF;
+  color: #1E293B;
+  font: 500 .9rem var(--font);
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.quiz-opt-btn:hover:not(:disabled) {
+  border-color: var(--accent, #0D9488);
+  background: #F8FAFC;
+}
+.quiz-opt-btn.correct {
+  border-color: #10B981 !important;
+  background: #ECFDF5 !important;
+  color: #065F46 !important;
+  font-weight: 600;
+}
+.quiz-opt-btn.wrong {
+  border-color: #EF4444 !important;
+  background: #FEF2F2 !important;
+  color: #991B1B !important;
+}
+.quiz-feedback {
+  margin-top: 1rem;
+  padding: .75rem 1rem;
+  border-radius: 8px;
+  font-size: .85rem;
+  display: none;
+}
+.quiz-feedback.show {
+  display: block;
+}
+.quiz-feedback.ok {
+  background: #ECFDF5;
+  color: #065F46;
+  border: 1px solid #A7F3D0;
+}
+.quiz-feedback.bad {
+  background: #FEF2F2;
+  color: #991B1B;
+  border: 1px solid #FECACA;
+}

@@ -49,6 +49,7 @@
         Store.set('siswa', siswa);
         Store.set('berkas', Store.get('berkas').filter((b) => b.siswa !== s.id));
         Store.set('pembayaran', Store.get('pembayaran').filter((b) => b.siswa !== s.id));
+        AuditLog.record('siswa', 'Hapus Siswa', `Menghapus data siswa ${s.nama} (${s.id}) beserta seluruh berkas dan tagihannya.`, 'Perhatian');
         render();
         UI.toast('Data siswa dihapus.', 'bad');
       }, 'Hapus');
@@ -62,10 +63,12 @@
     d.nama = d.nama.trim();
     if (d.id) {
       Object.assign(siswa.find((x) => x.id === d.id), d);
+      AuditLog.record('siswa', 'Ubah Data Siswa', `Memperbarui profil siswa ${d.nama} (${d.id}).`, 'Sukses');
       UI.toast('Data siswa diperbarui.');
     } else {
       d.id = Fmt.nextId('S', siswa);
       siswa.push(Object.assign(d, { progres: 0, tahap: 0 }));
+      AuditLog.record('siswa', 'Tambah Siswa', `Menambahkan siswa baru ${d.nama} (${d.id}) di kelas ${d.kelas}.`, 'Sukses');
       UI.toast(`Siswa ${d.nama} ditambahkan (${d.id}).`);
     }
     Store.set('siswa', siswa);

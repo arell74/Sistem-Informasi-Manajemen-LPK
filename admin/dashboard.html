@@ -66,6 +66,41 @@
           <div id="pengumuman"></div>
         </article>
 
+        <!-- Riwayat Aktivitas Sistem (Audit Log) -->
+        <article class="card" style="margin-top:1.1rem">
+          <div class="card-head">
+            <div>
+              <h3>Riwayat Aktivitas Sistem (Audit Log)</h3>
+              <p class="muted text-sm" style="margin:.15rem 0 0">Log verifikasi dan tindakan penting admin untuk transparansi operasional.</p>
+            </div>
+            <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap">
+              <select class="select" id="filterAuditCat" style="padding:.35rem .7rem;font-size:.82rem" aria-label="Filter kategori log">
+                <option value="">Semua Kategori</option>
+                <option value="berkas">Berkas</option>
+                <option value="pembayaran">Pembayaran</option>
+                <option value="pendaftar">Pendaftar</option>
+                <option value="siswa">Data Siswa</option>
+                <option value="jadwal">Jadwal</option>
+              </select>
+              <button class="btn btn-ghost btn-sm" id="btnExportAuditLog"><span data-icon="download"></span> Ekspor CSV</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="table" id="tblAudit">
+              <thead>
+                <tr>
+                  <th style="width:130px">Waktu</th>
+                  <th>Aktor</th>
+                  <th style="width:120px">Kategori</th>
+                  <th>Aksi & Keterangan</th>
+                  <th style="text-align:right;width:100px">Status</th>
+                </tr>
+              </thead>
+              <tbody id="auditList"></tbody>
+            </table>
+          </div>
+        </article>
+
         <!-- Modal detail & verifikasi pendaftar -->
         <div class="modal" id="modalPendaftar" hidden>
           <div class="modal-box wide" role="dialog" aria-modal="true" aria-labelledby="pdJudul">

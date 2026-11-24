@@ -221,14 +221,16 @@
     bayar.push({ id: Fmt.nextId('INV', bayar), siswa: id, ket: 'Biaya pendaftaran', jumlah: 1000000, tanggal: Fmt.isoHariIni(), metode: '-', status: 'Belum' });
     p.status = 'Diterima'; p.catatan = catatan();
     Store.set('siswa', siswa); Store.set('pembayaran', bayar); Store.set('pendaftar', pendaftar);
-    tutupDetail(); renderStats(); renderPendaftar(); renderTodo(); renderProgram();
+    AuditLog.record('pendaftar', 'Penerimaan Pendaftar', `Menerima ${p.kode} (${p.nama}) ke kelas ${siswa[siswa.length - 1].kelas} dan menerbitkan akun siswa ${id}.`, 'Sukses');
+    tutupDetail(); renderStats(); renderPendaftar(); renderTodo(); renderProgram(); renderAuditLog();
     UI.toast(`${p.nama} diterima sebagai siswa ${id}.`);
   }
 
   function tolak(p, alasan) {
     p.status = 'Ditolak'; p.catatan = alasan;
     Store.set('pendaftar', pendaftar);
-    tutupDetail(); renderPendaftar(); renderTodo();
+    AuditLog.record('pendaftar', 'Penolakan Pendaftar', `Menolak pendaftaran ${p.kode} (${p.nama}). Alasan: ${alasan}`, 'Perhatian');
+    tutupDetail(); renderPendaftar(); renderTodo(); renderAuditLog();
     UI.toast('Pendaftaran ditolak.', 'bad');
   }
 
@@ -291,5 +293,33 @@
       <p>${esc(p.isi)}</p><small>${Fmt.tanggal(p.tanggal)} · ${esc(p.penulis)}</small></div>`).join('') || '<div class="empty">Belum ada pengumuman.</div>';
   }
 
-  renderStats(); renderPendaftar(); renderTodo(); renderBars(); renderProgram(); renderPengumuman();
+  /* Riwayat aktivitas sistem (Audit Log) */
+  function renderAuditLog() {
+    const listEl = $('#auditList');
+    if (!listEl) return;
+    const filterCat = ($('#filterAuditCat') ? $('#filterAuditCat').value : '').toLowerCase();
+    const logs = AuditLog.list().filter((l) => !filterCat || (l.kategori || '').toLowerCase() === filterCat);
+
+    listEl.innerHTML = logs.length ? logs.slice(0, 10).map((l) => {
+      const tgl = Fmt.tanggal(l.waktu);
+      const jam = new Date(l.waktu).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+      const badgeTone = l.status === 'Sukses' ? 'ok' : l.status === 'Perhatian' ? 'warn' : 'bad';
+      return `
+        <tr>
+          <td><span class="audit-time">${tgl}<br><small>${jam}</small></span></td>
+          <td><strong>${esc(l.aktor)}</strong></td>
+          <td><span class="audit-category audit-cat-${esc(l.kategori)}">${esc(l.kategori)}</span></td>
+          <td><b>${esc(l.aksi)}</b><br><small class="muted">${esc(l.detail)}</small></td>
+          <td style="text-align:right"><span class="badge badge-${badgeTone}">${esc(l.status)}</span></td>
+        </tr>`;
+    }).join('') : '<tr><td colspan="5" class="empty" style="text-align:center;padding:1.8rem">Tidak ada riwayat aktivitas yang sesuai.</td></tr>';
+  }
+
+  const selFilterAudit = $('#filterAuditCat');
+  if (selFilterAudit) selFilterAudit.addEventListener('change', renderAuditLog);
+
+  const btnExportAudit = $('#btnExportAuditLog');
+  if (btnExportAudit) btnExportAudit.addEventListener('click', () => AuditLog.exportCSV());
+
+  renderStats(); renderPendaftar(); renderTodo(); renderBars(); renderProgram(); renderPengumuman(); renderAuditLog();
 })();

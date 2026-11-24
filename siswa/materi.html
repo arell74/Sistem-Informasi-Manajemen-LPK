@@ -21,21 +21,151 @@
       <header class="topbar" id="topbar"></header>
       <main class="content">
         <div class="page-head">
-          <div><h2>Materi Belajar</h2><p class="muted">Materi dari sensei untuk kelasmu. Klik unduh untuk menyimpan.</p></div>
+          <div><h2>Materi & Latihan Belajar</h2><p class="muted">Unduh modul dari sensei atau latih penguasaan kosakata N5/N4 secara mandiri.</p></div>
         </div>
 
-        <div class="card">
-          <div class="toolbar">
-            <div class="search"><span data-icon="search"></span><input class="input" type="search" placeholder="Cari judul materi…" aria-label="Cari materi" data-search="#tblMateri"></div>
-            <select class="select" aria-label="Filter jenis" data-filter="#tblMateri" data-col="2">
-              <option value="">Semua jenis</option><option>PDF</option><option>Slide</option><option>Audio</option><option>Video</option>
-            </select>
+        <div class="tabs" data-tabs style="margin-bottom:1.3rem">
+          <button class="tab active" data-tab="berkas">📁 Modul Pembelajaran</button>
+          <button class="tab" data-tab="flashcard">🎴 Flashcard & Kuis Mandiri</button>
+        </div>
+
+        <!-- Panel 1: Modul Berkas -->
+        <div data-panel="berkas">
+          <div class="card">
+            <div class="toolbar">
+              <div class="search"><span data-icon="search"></span><input class="input" type="search" placeholder="Cari judul materi…" aria-label="Cari materi" data-search="#tblMateri"></div>
+              <select class="select" aria-label="Filter jenis" data-filter="#tblMateri" data-col="2">
+                <option value="">Semua jenis</option><option>PDF</option><option>Slide</option><option>Audio</option><option>Video</option>
+              </select>
+            </div>
+            <div class="table-wrap">
+              <table class="table" id="tblMateri">
+                <thead><tr><th>Judul</th><th>Kelas</th><th>Jenis</th><th>Ukuran</th><th>Diunggah</th><th></th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
           </div>
-          <div class="table-wrap">
-            <table class="table" id="tblMateri">
-              <thead><tr><th>Judul</th><th>Kelas</th><th>Jenis</th><th>Ukuran</th><th>Diunggah</th><th></th></tr></thead>
-              <tbody></tbody>
-            </table>
+        </div>
+
+        <!-- Panel 2: Flashcard & Kuis Mandiri -->
+        <div data-panel="flashcard" hidden>
+          <div class="fc-wrapper">
+            <!-- Pilihan Mode: Kartu vs Kuis -->
+            <div class="card" style="margin-bottom:1.2rem;padding:.9rem 1.2rem">
+              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem">
+                <div style="display:flex;gap:.5rem;align-items:center">
+                  <button type="button" class="btn btn-sm btn-primary" id="btnModeKartu">🎴 Mode Flashcard</button>
+                  <button type="button" class="btn btn-sm btn-ghost" id="btnModeKuis">📝 Mode Mini Kuis</button>
+                </div>
+                <div style="display:flex;align-items:center;gap:.5rem">
+                  <label for="filterFcKategori" class="muted text-sm" style="white-space:nowrap">Kategori:</label>
+                  <select class="select" id="filterFcKategori" style="padding:.3rem .6rem;font-size:.84rem">
+                    <option value="">Semua Kosakata</option>
+                    <option value="Etika Kerja">Etika Kerja (Hou-Ren-Sou)</option>
+                    <option value="Keselamatan">Keselamatan & 5S</option>
+                    <option value="Pekerjaan">Lingkungan Kerja</option>
+                    <option value="Keseharian">Keseharian</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tampilan Mode Kartu -->
+            <div id="viewFlashcard">
+              <div class="fc-card-stage" id="fcStage" title="Klik untuk membalik kartu">
+                <div class="fc-card" id="fcCard">
+                  <!-- Sisi Depan -->
+                  <div class="fc-face fc-front">
+                    <div style="display:flex;justify-content:space-between;width:100%">
+                      <span class="fc-tag" id="fcFrontTag">Kategori</span>
+                      <small class="muted" style="font-size:.76rem">Ketuk untuk balik ↺</small>
+                    </div>
+                    <div style="margin:auto 0">
+                      <div class="fc-kanji-big" id="fcFrontKanji">挨拶</div>
+                      <div class="fc-kana-hint" id="fcFrontKana">あいさつ</div>
+                    </div>
+                    <small class="muted" style="font-size:.78rem">Level N5/N4 · SO LPK Yuuki</small>
+                  </div>
+
+                  <!-- Sisi Belakang -->
+                  <div class="fc-face fc-back">
+                    <div style="display:flex;justify-content:space-between;width:100%">
+                      <span class="fc-tag" id="fcBackTag" style="background:#CCFBF1;color:#0F766E">Kategori</span>
+                      <small class="muted" style="font-size:.76rem">Ketuk untuk balik ↺</small>
+                    </div>
+                    <div>
+                      <div class="fc-arti-big" id="fcBackArti">Salam / Tegur Sapa</div>
+                      <div class="fc-romaji-sub" id="fcBackRomaji">Romaji: Aisatsu</div>
+                    </div>
+                    <div class="fc-example-box" id="fcBackExample">
+                      <span id="fcBackExJp">毎朝、明るく挨拶をしましょう。</span>
+                      <small id="fcBackExId">Setiap pagi, mari menyapa dengan ceria.</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Kontrol navigasi kartu -->
+              <div class="fc-controls">
+                <button type="button" class="btn btn-ghost btn-sm" id="btnFcPrev"><span data-icon="edit"></span> Sebelumnya</button>
+                <button type="button" class="btn btn-outline btn-sm" id="btnFcFlip">Balik Kartu (Spasi)</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="btnFcNext">Selanjutnya <span data-icon="edit"></span></button>
+                <button type="button" class="btn btn-ghost btn-sm" id="btnFcShuffle" title="Acak urutan">🔀 Acak</button>
+              </div>
+
+              <!-- Self-assessment & Progress -->
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1.2rem;padding:0 .5rem">
+                <div style="display:flex;gap:.5rem">
+                  <button type="button" class="btn btn-danger btn-sm" id="btnFcBelum">❌ Belum Hafal</button>
+                  <button type="button" class="btn btn-ok btn-sm" id="btnFcPaham">✅ Sudah Paham</button>
+                </div>
+                <div style="text-align:right">
+                  <b id="fcCounter" style="font-size:.9rem;color:#0F172A">Kartu 1 dari 16</b>
+                  <div class="muted text-sm" id="fcStats" style="font-size:.76rem">Paham: 0 · Ulang: 0</div>
+                </div>
+              </div>
+
+              <div class="fc-progress-bar">
+                <div class="fc-progress-fill" id="fcProgressFill" style="width:6%"></div>
+              </div>
+            </div>
+
+            <!-- Tampilan Mode Mini Kuis -->
+            <div id="viewQuiz" style="display:none">
+              <div class="quiz-box">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+                  <span class="quiz-q-num" id="quizStepText">Pertanyaan 1 dari 5</span>
+                  <span class="badge badge-info" id="quizScoreBadge">Skor: 0</span>
+                </div>
+
+                <div style="text-align:center;margin-bottom:1.4rem">
+                  <div class="quiz-kanji" id="quizQuestionKanji">挨拶</div>
+                  <div class="quiz-kana" id="quizQuestionKana">あいさつ (Aisatsu)</div>
+                  <p class="muted text-sm" style="margin:0">Pilihlah arti bahasa Indonesia yang paling tepat:</p>
+                </div>
+
+                <div class="quiz-options" id="quizOptionsList"></div>
+
+                <div class="quiz-feedback" id="quizFeedback"></div>
+
+                <div style="display:flex;justify-content:flex-end;margin-top:1.2rem">
+                  <button type="button" class="btn btn-primary" id="btnQuizNext" style="display:none">Lanjut Soal Berikutnya →</button>
+                </div>
+              </div>
+
+              <!-- Ringkasan Hasil Kuis -->
+              <div class="quiz-box" id="quizResultBox" style="display:none;text-align:center">
+                <div style="font-size:3rem;margin-bottom:.5rem">🏆</div>
+                <h3 style="margin:0 0 .3rem">Latihan Kuis Selesai!</h3>
+                <p class="muted text-sm">Hasil penguasaan kosakata bahasa Jepang kamu:</p>
+                <div style="font-size:2.4rem;font-weight:700;color:var(--accent,#0D9488);margin:.8rem 0" id="quizFinalScore">100 / 100</div>
+                <p id="quizSummaryText" style="font-size:.9rem;margin-bottom:1.5rem">Luar biasa! Penguasaan kosakata dan kanji kamu sudah sangat matang.</p>
+                <div style="display:flex;justify-content:center;gap:.6rem">
+                  <button type="button" class="btn btn-primary" id="btnQuizRestart">Ulangi Kuis ↺</button>
+                  <button type="button" class="btn btn-outline" id="btnQuizBackToCards">Kembali ke Flashcard</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
