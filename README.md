@@ -83,21 +83,24 @@ Sistem dirancang dengan pemisahan wewenang yang tegas (*Role-Based Access Contro
 | Peran | Ruang Lingkup & Wewenang Utama | Tema Aksen |
 | :--- | :--- | :---: |
 | **🌐 Publik / Calon Siswa** | Mengakses informasi program, 14 bidang kerja, profil sensei, FAQ, serta mengajukan formulir pendaftaran siswa baru secara online. | Neutral Red |
-| **🛡️ Admin LPK** | Mengelola verifikasi kelayakan pendaftar baru, CRUD siswa & sensei, jadwal & ruang belajar (dengan validasi bentrok otomatis), validasi pembayaran & kwitansi, verifikasi dokumen legal/paspor, serta broadcast pengumuman. | Crimson Red (`#C8102E`) |
+| **👔 Pimpinan (Direktur LPK)** | Memantau ringkasan eksekutif KPI kelulusan & keberangkatan, persetujuan/disposisi resmi permohonan dana & pengajuan siswa, serta mencetak Laporan Kinerja SO resmi ber-kop surat dan stempel digital. | Executive Amber (`#D97706`) |
+| **🛡️ Admin LPK** | Mengelola verifikasi pendaftar baru, CRUD siswa & sensei, kemitraan perusahaan penerima di Jepang (*Kaisha & Kumiai*), jadwal belajar, validasi pembayaran & kwitansi, audit trail aktivitas, dan pengumuman. | Crimson Red (`#C8102E`) |
 | **📚 Sensei (Pengajar)** | Mengelola kelas yang diampu, mengisi kehadiran harian siswa, menginput nilai evaluasi (otomatis menghitung rata-rata & predikat), dan mendistribusikan materi belajar. | Royal Blue (`#3B82F6`) |
-| **🎓 Siswa** | Memantau progres kesiapan kerja, grafik nilai & riwayat ujian, jadwal sesi belajar, mengunduh modul, unggah bukti bayar & kwitansi, serta unggah dokumen paspor/visa. | Emerald Green (`#0D9488`) |
+| **🎓 Siswa** | Memantau progres kesiapan kerja, pelacak penempatan kerja & status CoE imigrasi Jepang, kartu flashcard & kuis kanji interaktif, cetak rapor resmi, jadwal, pembayaran, dan unggah dokumen paspor/visa. | Emerald Green (`#0D9488`) |
 
 ### 🔄 Alur Integrasi Antar Aktor
 
 ```mermaid
-flowchart LR
-    A[Calon Siswa Daftar] -->|Verifikasi Validitas & NIK| B(Admin LPK)
-    B -->|Diterbitkan Akun & Tagihan| C(Siswa)
-    C -->|Unggah Bukti Bayar & Dokumen| B
-    D[Sensei] -->|Input Nilai & Absensi| C
-    D -->|Unggah Materi| C
-    B -->|Broadcast Pengumuman| C
-    B -->|Jadwal Terjadwal| D
+flowchart TD
+    Pub[Calon Siswa] -->|Pendaftaran Online| Admin[Admin LPK]
+    Admin -->|Verifikasi & Penempatan Kaisha/Kumiai| Siswa[Siswa]
+    Admin -->|Pengajuan Izin/RAB| Pimp[Pimpinan / Direktur]
+    Pimp -->|Disposisi & Persetujuan Resmi| Admin
+    Sensei[Sensei / Instruktur] -->|Input Nilai & Absensi| Siswa
+    Sensei -->|Distribusi Materi Pembelajaran| Siswa
+    Siswa -->|Latihan Mandiri Flashcard & Kuis| Siswa
+    Siswa -->|Unggah Bukti Bayar & Dokumen| Admin
+    Admin -->|Audit Trail Log & Kwitansi Resmi| Pimp
 ```
 
 ---
@@ -128,6 +131,15 @@ Dashboard admin dilengkapi dengan kalkulasi kelayakan otomatis untuk menyaring p
 - **Service Worker Caching (`sw.js`):** Menggunakan strategi *Stale-While-Revalidate* dan *Network-First fallback* yang memungkinkan akses jadwal, materi, dan flashcard kosakata bahkan saat berada di area tanpa koneksi internet (*offline mode*).
 - **Indikator Jaringan & Install Prompt:** Deteksi status online/offline otomatis dengan notifikasi interaktif serta tombol pasang cepat pada menu dashboard.
 
+### 🏢 6. Modul Kemitraan Jepang & Pelacak CoE Imigrasi
+- **Manajemen Kaisha & Kumiai (Admin):** Pencatatan dan inventarisasi asosiasi pengawas (*Kumiai*) dan perusahaan penerima (*Kaisha*) di Jepang lengkap dengan prefektur, bidang kerja, serta daftar siswa yang ditempatkan.
+- **Kartu Pelacak Status Imigrasi (Siswa):** Siswa pemagangan dapat memantau langsung informasi perusahaan penempatan, kisaran gaji (Yen), asrama, nomor CoE (*Certificate of Eligibility*), estimasi bulan keberangkatan, dan status verifikasi imigrasi Nyukan secara transparan.
+
+### 🗂️ 7. Dokumen Resmi Ber-Kop Surat, Stempel Digital, & Audit Log
+- **Cetak Standar Industri:** Cetak rapor nilai, kwitansi pembayaran, dan ringkasan eksekutif secara profesional dilengkapi kop surat resmi SO, simulasi cap stempel digital LPK, serta QR Code verifikasi dokumen.
+- **Audit Trail Aktivitas Admin:** Pencatatan otomatis setiap tindakan mutasi data krusial (verifikasi berkas, persetujuan pembayaran, perubahan status siswa) untuk akuntabilitas institusi.
+- **Flashcard & Kuis Mandiri (Siswa):** Modul interaktif 3D flip card kosakata N5/N4 dan mini kuis latihan pra-ujian.
+
 ---
 
 ## 🔑 Akun Demo
@@ -136,9 +148,10 @@ Sistem menyediakan akun siap pakai untuk mengeksplorasi seluruh hak akses portal
 
 | Peran | Email | Kata Sandi | Halaman Utama |
 | :--- | :--- | :--- | :--- |
-| **Administrator** | `admin@yuuki.test` | `admin123` | `admin/dashboard.html` |
-| **Sensei (Guru)** | `sensei@yuuki.test` | `sensei123` | `sensei/dashboard.html` |
-| **Siswa** | `siswa@yuuki.test` | `siswa123` | `siswa/dashboard.html` |
+| **👔 Pimpinan (Direktur)** | `pimpinan@yuuki.test` | `pimpinan123` | `pimpinan/dashboard.html` |
+| **🛡️ Administrator** | `admin@yuuki.test` | `admin123` | `admin/dashboard.html` |
+| **📚 Sensei (Guru)** | `sensei@yuuki.test` | `sensei123` | `sensei/dashboard.html` |
+| **🎓 Siswa** | `siswa@yuuki.test` | `siswa123` | `siswa/dashboard.html` |
 
 > [!TIP]  
 > Pada pojok kanan atas menu pengguna dashboard, tersedia tombol **Reset Data** untuk mengembalikan seluruh modifikasi data di browser ke kondisi awal (*seed data* bawaan).
@@ -151,25 +164,30 @@ Sistem menyediakan akun siap pakai untuk mengeksplorasi seluruh hak akses portal
 yuuki-portal/
 ├── index.html                  # Landing page publik (Company Profile)
 ├── pendaftaran.html            # Formulir registrasi calon siswa baru
-├── login.html                  # Halaman otentikasi login multi-role
+├── login.html                  # Halaman otentikasi login multi-role (4 Peran)
+├── manifest.json               # Konfigurasi instalasi Progressive Web App (PWA)
+├── sw.js                       # Service Worker offline caching (75 aset)
 ├── css/
 │   ├── style.css               # Desain pondasi, token variabel, tombol, & form
 │   ├── public.css              # Layout & styling halaman publik
 │   ├── dashboard.css           # Shell layout dashboard, navigasi, topbar, & sidebar
 │   ├── admin.css               # Identitas warna aksen Admin (Red)
 │   ├── sensei.css              # Identitas warna aksen Sensei (Blue/Indigo)
-│   └── siswa.css               # Identitas warna aksen Siswa (Teal/Emerald)
+│   ├── siswa.css               # Identitas warna aksen Siswa (Teal/Emerald)
+│   └── pimpinan.css            # Identitas warna aksen Pimpinan (Executive Amber)
 ├── js/
-│   ├── data.js                 # Seed mock data awal (pengganti database server)
-│   ├── app.js                  # Core utility: Store (localStorage), Auth, Form, & UI
+│   ├── data.js                 # Seed mock data awal (siswa, sensei, jadwal, mitra, dll.)
+│   ├── app.js                  # Core utility: Store (localStorage), Auth, Form, & Shell UI
 │   ├── guard.js                # Penjaga otorisasi rute per sesi peran
 │   ├── profil.js               # Logika manajemen akun & ubah profil terpadu
-│   ├── admin/                  # Modul spesifik Admin (siswa, sensei, jadwal, bayar, dll.)
-│   ├── sensei/                 # Modul spesifik Sensei (absensi, nilai, materi, kelas)
-│   └── siswa/                  # Modul spesifik Siswa (progres, dokumen, jadwal, bayar)
-├── admin/                      # Halaman HTML antarmuka Admin (8 view)
-├── sensei/                     # Halaman HTML antarmuka Sensei (6 view)
-├── siswa/                      # Halaman HTML antarmuka Siswa (7 view)
+│   ├── admin/                  # Modul Admin (siswa, sensei, jadwal, mitra-jepang, audit log, dll.)
+│   ├── sensei/                 # Modul Sensei (absensi, nilai, materi, kelas)
+│   ├── siswa/                  # Modul Siswa (progres, dokumen, flashcard, jadwal, bayar)
+│   └── pimpinan/               # Modul Pimpinan (dashboard KPI, persetujuan, laporan resmi)
+├── pimpinan/                   # Halaman antarmuka Direktur / Pimpinan (4 view)
+├── admin/                      # Halaman antarmuka Admin (9 view termasuk mitra-jepang)
+├── sensei/                     # Halaman antarmuka Sensei (6 view)
+├── siswa/                      # Halaman antarmuka Siswa (7 view)
 └── img/                        # Aset grafis, logo brand resmi, & screenshot
 ```
 

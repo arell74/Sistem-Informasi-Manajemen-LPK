@@ -20,6 +20,7 @@ const PRECACHE_ASSETS = [
   './css/admin.css',
   './css/sensei.css',
   './css/siswa.css',
+  './css/pimpinan.css',
 
   // Core JS
   './js/data.js',
@@ -50,6 +51,7 @@ const PRECACHE_ASSETS = [
   './admin/data-siswa.html',
   './admin/data-sensei.html',
   './admin/kelas-jadwal.html',
+  './admin/mitra-jepang.html',
   './admin/pembayaran.html',
   './admin/verifikasi-berkas.html',
   './admin/pengumuman.html',
@@ -58,9 +60,19 @@ const PRECACHE_ASSETS = [
   './js/admin/data-siswa.js',
   './js/admin/data-sensei.js',
   './js/admin/kelas-jadwal.js',
+  './js/admin/mitra-jepang.js',
   './js/admin/pembayaran.js',
   './js/admin/verifikasi-berkas.js',
   './js/admin/pengumuman.js',
+
+  // Pimpinan Module (Direktur LPK)
+  './pimpinan/dashboard.html',
+  './pimpinan/persetujuan.html',
+  './pimpinan/laporan.html',
+  './pimpinan/profil.html',
+  './js/pimpinan/dashboard.js',
+  './js/pimpinan/persetujuan.js',
+  './js/pimpinan/laporan.js',
 
   // Sensei Module
   './sensei/dashboard.html',

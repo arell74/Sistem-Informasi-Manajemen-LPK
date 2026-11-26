@@ -1,0 +1,7 @@
+/* pimpinan.css — aksen warna Pimpinan / Direktur (Executive Gold & Amber) */
+[data-role="pimpinan"] {
+  --accent: #D97706;
+  --accent-dark: #B45309;
+  --accent-soft: #FFFBEB;
+  --accent-line: #FDE68A;
+}

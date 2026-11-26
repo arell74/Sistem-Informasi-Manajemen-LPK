@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id" data-role="pimpinan" data-page="dashboard" data-title="Dashboard Eksekutif">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- PWA & Mobile Capabilities -->
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#C8102E">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Yuuki Portal">
+  <link rel="apple-touch-icon" href="../img/icon-192.png">
+  <title>Dashboard Eksekutif · Direktur · Yuuki Portal</title>
+  <link rel="icon" href="../img/logo-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/pimpinan.css">
+  <!-- penjaga hak akses: dijalankan sebelum halaman tampil -->
+  <script src="../js/guard.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main">
+      <header class="topbar" id="topbar"></header>
+      <main class="content">
+        <div class="welcome" style="background:linear-gradient(135deg, #1E293B 0%, #0F172A 100%);color:#fff">
+          <div>
+            <h2 style="color:#F8FAFC">Selamat Datang, <span id="namaDirektur">Direktur LPK</span></h2>
+            <p style="color:#94A3B8">Ringkasan eksekutif tata kelola SO LPK Yuuki Training Center Indonesia hari ini.</p>
+          </div>
+          <button class="btn btn-light" id="btnCetakEksekutif"><span data-icon="printer"></span> Cetak Ringkasan Eksekutif</button>
+        </div>
+
+        <!-- 4 Kartu KPI Eksekutif -->
+        <section class="grid stats" id="statsEksekutif"></section>
+
+        <!-- Pipeline Keberangkatan & Persetujuan Mendesak -->
+        <section class="grid cols-2-1">
+          <article class="card">
+            <div class="card-head">
+              <div>
+                <h3>Pipeline Peserta Pemagangan ke Jepang</h3>
+                <p class="muted text-sm" style="margin:.15rem 0 0">Distribusi peserta pelatihan menuju pemberangkatan kerja.</p>
+              </div>
+              <a href="laporan.html" class="btn btn-ghost btn-sm">Laporan Lengkap →</a>
+            </div>
+            <div id="pipelineSteps" style="margin-top:.8rem"></div>
+          </article>
+
+          <article class="card">
+            <div class="card-head">
+              <h3>Disposisi & Approval Direktur</h3>
+              <a href="persetujuan.html" class="btn btn-ghost btn-sm">Lihat Semua</a>
+            </div>
+            <ul class="todo" id="todoPimpinan"></ul>
+          </article>
+        </section>
+
+        <!-- Kemitraan Jepang & Ringkasan Finansial -->
+        <section class="grid cols-2">
+          <article class="card">
+            <div class="card-head">
+              <h3>Mitra Perusahaan Jepang (Kaisha & Kumiai)</h3>
+              <span class="badge badge-info" id="badgeTotalMitra">5 Perusahaan</span>
+            </div>
+            <div class="table-wrap">
+              <table class="table" id="tblMitraRingkas">
+                <thead>
+                  <tr>
+                    <th>Perusahaan Penerima</th>
+                    <th>Prefektur</th>
+                    <th>Bidang</th>
+                    <th style="text-align:right">Kuota</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-head">
+              <h3>Ringkasan Keuangan Lembaga</h3>
+              <span class="muted text-sm">Tahun Berjalan 2026</span>
+            </div>
+            <div id="rekapFinansial"></div>
+          </article>
+        </section>
+
+        <!-- Audit Log Ringkas -->
+        <article class="card" style="margin-top:1.1rem">
+          <div class="card-head">
+            <div>
+              <h3>Aktivitas Terkini Lembaga</h3>
+              <p class="muted text-sm" style="margin:.15rem 0 0">Transparansi tindakan operasional admin dan sensei.</p>
+            </div>
+            <a href="laporan.html" class="btn btn-ghost btn-sm">Arsip Log</a>
+          </div>
+          <div class="table-wrap">
+            <table class="table" id="tblAuditRingkas">
+              <thead>
+                <tr>
+                  <th style="width:140px">Waktu</th>
+                  <th>Aktor</th>
+                  <th>Kategori</th>
+                  <th>Uraian Tindakan</th>
+                  <th style="text-align:right">Status</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </article>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/pimpinan/dashboard.js"></script>
+</body>
+</html>

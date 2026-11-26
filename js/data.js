@@ -31,9 +31,10 @@ const DB = {
 
   /* ---------- Akun demo (satu per aktor) ---------- */
   users: {
-    admin:  { id: 'A-001', nama: 'Rina Kusuma',    jabatan: 'Admin LPK',            email: 'admin@yuuki.test',  telepon: '0812-1000-0100',  password: 'admin123' },
-    sensei: { id: 'T-001', nama: 'Tanaka Hiroshi', jabatan: 'Sensei Bahasa Jepang', email: 'sensei@yuuki.test', password: 'sensei123' },
-    siswa:  { id: 'S-001', nama: 'Farel Fauzan',   jabatan: 'Peserta Pemagangan',  email: 'siswa@yuuki.test',  password: 'siswa123' }
+    admin:    { id: 'A-001', nama: 'Rina Kusuma',            jabatan: 'Admin LPK',            email: 'admin@yuuki.test',    telepon: '0812-1000-0100', password: 'admin123' },
+    sensei:   { id: 'T-001', nama: 'Tanaka Hiroshi',         jabatan: 'Sensei Bahasa Jepang', email: 'sensei@yuuki.test',   telepon: '0812-1000-0001', password: 'sensei123' },
+    siswa:    { id: 'S-001', nama: 'Farel Fauzan',           jabatan: 'Peserta Pemagangan',  email: 'siswa@yuuki.test',    telepon: '0812-3456-7801', password: 'siswa123' },
+    pimpinan: { id: 'P-001', nama: 'Sopyan Komarudin, S.Kep.', jabatan: 'Direktur LPK Yuuki', email: 'pimpinan@yuuki.test', telepon: '0812-9999-0001', password: 'pimpinan123' }
   },
 
   program: [
@@ -60,17 +61,33 @@ const DB = {
   ],
 
   siswa: [
-    { id: 'S-001', nama: 'Farel Fauzan',    kelas: 'K-N5A', program: 'MGN', bidang: 'Restoran', telepon: '0812-3456-7801', email: 'siswa@yuuki.test',  kota: 'Bandung',    lahir: '2002-04-12', status: 'Aktif',          progres: 68, tahap: 1 },
-    { id: 'S-002', nama: 'Muhammad Shalih Fauzan',  kelas: 'K-N5A', program: 'MGN', bidang: 'Perawat', telepon: '0812-3456-7802', email: 'maruzan21@mail.com',   kota: 'Cirebon',    lahir: '2001-09-03', status: 'Aktif',          progres: 74, tahap: 1 },
-    { id: 'S-003', nama: 'Rizky Riaadha Rismandana',   kelas: 'K-N5A', program: 'MGN', bidang: 'Pertanian', telepon: '0812-3456-7803', email: 'kyyy1@mail.com',   kota: 'Semarang',   lahir: '2003-01-21', status: 'Aktif',          progres: 55, tahap: 1 },
-    { id: 'S-004', nama: 'Rafsan Zaini Anwar',  kelas: 'K-N5B', program: 'BHS', telepon: '0812-3456-7804', email: 'rafsanza@mail.com',   kota: 'Bogor',      lahir: '2000-12-30', status: 'Aktif',          progres: 60, tahap: 1 },
-    { id: 'S-005', nama: 'Azril Alghiffari',  kelas: 'K-N5B', program: 'MGN', bidang: 'Pembuatan Bahan Makanan dan Minuman', telepon: '0812-3456-7805', email: 'ziw22@mail.com',  kota: 'Bekasi',     lahir: '2002-06-18', status: 'Aktif',          progres: 48, tahap: 1 },
-    { id: 'S-006', nama: 'Lena Anastasya',        kelas: 'K-N4A', program: 'MGN', bidang: 'Penginapan', telepon: '0812-3456-7806', email: 'kalenaa6@mail.com',    kota: 'Malang',     lahir: '2001-02-14', status: 'Aktif',          progres: 82, tahap: 2 },
-    { id: 'S-007', nama: 'Nova Shabilla',   kelas: 'K-N4A', program: 'MGN', bidang: 'Industri Mesin', telepon: '0812-3456-7807', email: 'novasha@mail.com',  kota: 'Surabaya',   lahir: '2000-08-09', status: 'Siap Berangkat', progres: 95, tahap: 3 },
-    { id: 'S-008', nama: 'Kafka Mina',  kelas: 'K-N4A', program: 'MGN', bidang: 'Perawat', telepon: '0812-3456-7808', email: 'kafkafka@mail.com',  kota: 'Yogyakarta', lahir: '2001-11-25', status: 'Siap Berangkat', progres: 97, tahap: 4 },
-    { id: 'S-009', nama: 'Ilham Dwi Cahyana',      kelas: 'K-N5B', program: 'KRY', telepon: '0812-3456-7809', email: 'ryuarata@mail.com',    kota: 'Solo',       lahir: '1999-05-05', status: 'Cuti',           progres: 30, tahap: 1 },
-    { id: 'S-010', nama: 'Rehan Janwar Pratama',    kelas: 'K-N5A', program: 'BHS', telepon: '0812-3456-7810', email: 'rhann1@mail.com',   kota: 'Depok',      lahir: '2002-10-02', status: 'Aktif',          progres: 62, tahap: 1 },
-    { id: 'S-011', nama: 'Adwiyana Nugraha',    kelas: 'K-N5A', program: 'BHS', telepon: '0812-3356-7810', email: 'edwin1@mail.com',   kota: 'Depok',      lahir: '2002-10-02', status: 'Aktif',          progres: 62, tahap: 1 }
+    { id: 'S-001', nama: 'Farel Fauzan',    kelas: 'K-N5A', program: 'MGN', bidang: 'Restoran', telepon: '0812-3456-7801', email: 'siswa@yuuki.test',  kota: 'Bandung',    lahir: '2002-04-12', status: 'Aktif',          progres: 68, tahap: 3, mitra: 'KAI-001', tahap_imigrasi: 'Pemeriksaan CoE Nyukan Nagoya', no_coe: 'COE-2026-NGO-91823', target_terbang: 'Februari 2027' },
+    { id: 'S-002', nama: 'Muhammad Shalih Fauzan',  kelas: 'K-N5A', program: 'MGN', bidang: 'Perawat', telepon: '0812-3456-7802', email: 'maruzan21@mail.com',   kota: 'Cirebon',    lahir: '2001-09-03', status: 'Aktif',          progres: 74, tahap: 2, mitra: 'KAI-002', tahap_imigrasi: 'Menunggu Wawancara User', no_coe: '-', target_terbang: 'Maret 2027' },
+    { id: 'S-003', nama: 'Rizky Riaadha Rismandana',   kelas: 'K-N5A', program: 'MGN', bidang: 'Pertanian', telepon: '0812-3456-7803', email: 'kyyy1@mail.com',   kota: 'Semarang',   lahir: '2003-01-21', status: 'Aktif',          progres: 55, tahap: 1, mitra: 'KAI-003', tahap_imigrasi: 'Pelatihan Bahasa Dasar', no_coe: '-', target_terbang: 'Juni 2027' },
+    { id: 'S-004', nama: 'Rafsan Zaini Anwar',  kelas: 'K-N5B', program: 'BHS', telepon: '0812-3456-7804', email: 'rafsanza@mail.com',   kota: 'Bogor',      lahir: '2000-12-30', status: 'Aktif',          progres: 60, tahap: 1, mitra: '', tahap_imigrasi: '-', no_coe: '-', target_terbang: '-' },
+    { id: 'S-005', nama: 'Azril Alghiffari',  kelas: 'K-N5B', program: 'MGN', bidang: 'Pembuatan Bahan Makanan dan Minuman', telepon: '0812-3456-7805', email: 'ziw22@mail.com',  kota: 'Bekasi',     lahir: '2002-06-18', status: 'Aktif',          progres: 48, tahap: 1, mitra: 'KAI-004', tahap_imigrasi: 'Pelatihan Bahasa Dasar', no_coe: '-', target_terbang: 'Juli 2027' },
+    { id: 'S-006', nama: 'Lena Anastasya',        kelas: 'K-N4A', program: 'MGN', bidang: 'Penginapan', telepon: '0812-3456-7806', email: 'kalenaa6@mail.com',    kota: 'Malang',     lahir: '2001-02-14', status: 'Aktif',          progres: 82, tahap: 2, mitra: 'KAI-001', tahap_imigrasi: 'Menunggu Jadwal Mensetsu', no_coe: '-', target_terbang: 'April 2027' },
+    { id: 'S-007', nama: 'Nova Shabilla',   kelas: 'K-N4A', program: 'MGN', bidang: 'Industri Mesin', telepon: '0812-3456-7807', email: 'novasha@mail.com',  kota: 'Surabaya',   lahir: '2000-08-09', status: 'Siap Berangkat', progres: 95, tahap: 4, mitra: 'KAI-005', tahap_imigrasi: 'CoE Terbit - Pengurusan Visa', no_coe: 'COE-2026-OSK-40192', target_terbang: 'Januari 2027' },
+    { id: 'S-008', nama: 'Kafka Mina',  kelas: 'K-N4A', program: 'MGN', bidang: 'Perawat', telepon: '0812-3456-7808', email: 'kafkafka@mail.com',  kota: 'Yogyakarta', lahir: '2001-11-25', status: 'Siap Berangkat', progres: 97, tahap: 5, mitra: 'KAI-002', tahap_imigrasi: 'Visa Terbit - Siap Berangkat', no_coe: 'COE-2026-TYO-11029', target_terbang: 'Desember 2026' },
+    { id: 'S-009', nama: 'Ilham Dwi Cahyana',      kelas: 'K-N5B', program: 'KRY', telepon: '0812-3456-7809', email: 'ryuarata@mail.com',    kota: 'Solo',       lahir: '1999-05-05', status: 'Cuti',           progres: 30, tahap: 1, mitra: '', tahap_imigrasi: '-', no_coe: '-', target_terbang: '-' },
+    { id: 'S-010', nama: 'Rehan Janwar Pratama',    kelas: 'K-N5A', program: 'BHS', telepon: '0812-3456-7810', email: 'rhann1@mail.com',   kota: 'Depok',      lahir: '2002-10-02', status: 'Aktif',          progres: 62, tahap: 1, mitra: '', tahap_imigrasi: '-', no_coe: '-', target_terbang: '-' },
+    { id: 'S-011', nama: 'Adwiyana Nugraha',    kelas: 'K-N5A', program: 'BHS', telepon: '0812-3356-7810', email: 'edwin1@mail.com',   kota: 'Depok',      lahir: '2002-10-02', status: 'Aktif',          progres: 62, tahap: 1, mitra: '', tahap_imigrasi: '-', no_coe: '-', target_terbang: '-' }
+  ],
+
+  /* Mitra Perusahaan Penerima (Kaisha) & Asosiasi Pengawas (Kumiai) di Jepang */
+  mitra: [
+    { id: 'KAI-001', nama: 'Yamato Kousan Co., Ltd.', kanji: '大和工産株式会社', kumiai: 'Kanto International Union', prefektur: 'Aichi-ken (愛知県)', kota: 'Nagoya', bidang: 'Restoran', kuota: 6, terisi: 4, gaji: 178000, asrama: 'Tersedia (Subsidi 50%)', status: 'Aktif' },
+    { id: 'KAI-002', nama: 'Sakura Medical Care Group', kanji: '桜メディカルケア株式会社', kumiai: 'Zen-Nihon Kaigo Assist', prefektur: 'Saitama-ken (埼玉県)', kota: 'Kawagoe', bidang: 'Perawat', kuota: 8, terisi: 6, gaji: 185000, asrama: 'Apartemen Mandiri', status: 'Aktif' },
+    { id: 'KAI-003', nama: 'Niigata Agri Federation', kanji: '新潟アグリ農協連合', kumiai: 'JA Nihon Agricoop', prefektur: 'Niigata-ken (新潟県)', kota: 'Nagaoka', bidang: 'Pertanian', kuota: 4, terisi: 4, gaji: 172000, asrama: 'Asrama Pertanian', status: 'Penuh' },
+    { id: 'KAI-004', nama: 'Tokyo Food Logistics Corp', kanji: '東京フードロジ株式会社', kumiai: 'Tokyo Business Cooperative', prefektur: 'Tokyo-to (東京都)', kota: 'Koto-ku', bidang: 'Pembuatan Bahan Makanan dan Minuman', kuota: 6, terisi: 3, gaji: 182000, asrama: 'Dormitory', status: 'Aktif' },
+    { id: 'KAI-005', nama: 'Kansai Precision Machinery', kanji: '関西精密機械工業', kumiai: 'Osaka Engineering Union', prefektur: 'Osaka-fu (大阪府)', kota: 'Sakai', bidang: 'Industri Mesin', kuota: 5, terisi: 2, gaji: 180000, asrama: 'Tersedia', status: 'Aktif' }
+  ],
+
+  /* Pengajuan disposisi & persetujuan Direktur LPK */
+  persetujuan: [
+    { id: 'APP-001', jenis: 'Kelayakan Keberangkatan', siswa: 'S-008', pemohon: 'Admin LPK', tanggal: '2026-11-23', status: 'Menunggu', catatan: 'Dokumen visa dan kontrak kerja Kafka Mina telah terverifikasi lengkap. Memohon persetujuan pelepasan magang.' },
+    { id: 'APP-002', jenis: 'Pengesahan Rapor Evaluasi', siswa: 'S-007', pemohon: 'Tanaka Hiroshi', tanggal: '2026-11-22', status: 'Menunggu', catatan: 'Nilai ujian simulasi bahasa N4 mencapai rata-rata 90. Pengesahan lembar hasil evaluasi belajar.' },
+    { id: 'APP-003', jenis: 'Kerjasama Kemitraan Baru', siswa: '-', pemohon: 'Admin LPK', tanggal: '2026-11-20', status: 'Disetujui', catatan: 'Pembaruan kuota magang bidang Restoran dengan Yamato Kousan Co., Ltd. (5 kuota baru).' }
   ],
 
   jadwal: [

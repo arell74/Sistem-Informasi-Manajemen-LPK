@@ -122,7 +122,7 @@ const Store = {
 })();
 
 /* ---------- 3. Auth ---------- */
-const ROLE_LABEL = { admin: 'Admin LPK', sensei: 'Sensei', siswa: 'Siswa' };
+const ROLE_LABEL = { admin: 'Admin LPK', sensei: 'Sensei', siswa: 'Siswa', pimpinan: 'Direktur LPK' };
 const Auth = {
   key: 'yuuki_session',
   current() {
@@ -703,6 +703,7 @@ const MENUS = {
     { href: 'data-siswa',       label: 'Data Siswa',        icon: 'users' },
     { href: 'data-sensei',      label: 'Data Sensei',       icon: 'user' },
     { href: 'kelas-jadwal',     label: 'Kelas & Jadwal',    icon: 'calendar' },
+    { href: 'mitra-jepang',     label: 'Mitra Jepang',      icon: 'plane' },
     { href: 'pembayaran',       label: 'Pembayaran',        icon: 'wallet' },
     { href: 'verifikasi-berkas', label: 'Verifikasi Berkas', icon: 'filecheck' },
     { href: 'pengumuman',       label: 'Pengumuman',        icon: 'megaphone' }
@@ -722,6 +723,12 @@ const MENUS = {
     { href: 'pembayaran', label: 'Pembayaran',         icon: 'wallet' },
     { href: 'berkas',     label: 'Berkas Keberangkatan', icon: 'filecheck' },
     { href: 'profil',     label: 'Profil Saya',        icon: 'user' }
+  ],
+  pimpinan: [
+    { href: 'dashboard',   label: 'Dashboard Eksekutif', icon: 'dashboard' },
+    { href: 'persetujuan', label: 'Persetujuan (Approval)', icon: 'checksq' },
+    { href: 'laporan',     label: 'Laporan Kinerja SO',  icon: 'printer' },
+    { href: 'profil',      label: 'Profil Saya',         icon: 'user' }
   ]
 };
 
